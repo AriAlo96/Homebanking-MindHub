@@ -4,6 +4,7 @@ import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,15 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 @RequestMapping("/clients")
-    public List<ClientDTO> getClients(){
+    public List<ClientDTO> getAllClients(){
     List<ClientDTO> clients = clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
     return clients;
     }
+    @RequestMapping("/clients/{id}")
+    public ClientDTO getClient(@PathVariable Long id){
+        ClientDTO foundClient = clientRepository.findById(id).map(client -> new ClientDTO(client)).orElse(null);
+        return foundClient;
+    }
+
+
 }
