@@ -1,0 +1,39 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+:root {
+    --color1: rgb(7, 25, 82);
+    --color2: rgb(11, 102, 106);
+    --color3: rgb(53, 162, 159);
+    --color4: rgb(151, 254, 237);
+}
+
+.mainAccounts {
+    min-height: 60vh;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    color: var(--color1) !important;
+}
+
+.nav-general {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+a {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: var(--color1) !important;
+}
+
+a:hover {
+    transform: scale(1.1);
+    color: var(--color3) !important;
+}

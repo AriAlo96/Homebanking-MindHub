@@ -22,7 +22,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, int balance) {
+    public Account(String number, LocalDate creationDate, double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;

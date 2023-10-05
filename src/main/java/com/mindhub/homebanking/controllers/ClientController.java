@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
-@RequestMapping("/clients")
+    @RequestMapping("/clients")
     public List<ClientDTO> getAllClients(){
     List<ClientDTO> clients = clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
     return clients;

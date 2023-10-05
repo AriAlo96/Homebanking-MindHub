@@ -34,7 +34,7 @@ public class HomebankingApplication {
 			accountRepository.save(account1);
 			accountRepository.save(account2);
 
-			Account account3 = new Account ("VIN003" , LocalDate.now(), 5800 );
+			Account account3 = new Account ("VIN003" , LocalDate.now(), 5800);
 			Account account4 = new Account ("VIN004" , LocalDate.now().plusDays(1), 9400);
 			client2.addAccount(account3);
 			client2.addAccount(account4);

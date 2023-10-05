@@ -18,7 +18,7 @@ const app = Vue.createApp ({
         loadData(){
             axios.get("/clients")
             .then(response => {
-                this.clients = this.clients = response.data._embedded.clients;
+                this.clients = response.data._embedded.clients;
                 this.jsonResponse = response.data;
             })
             .catch(error => {
