@@ -1,16 +1,20 @@
 const app = Vue.createApp({
     data() {
         return {
-            client: {},
-            accounts: {},
+            account: {},
+            transactions: {},
         };
     },
 
     created() {
-        axios.get("/api/clients/1")
+        let urlParams = new URLSearchParams(location.search);
+        let id = urlParams.get('id')
+        axios.get(`/api/accounts/${id}`)
             .then(response => {
-                this.client = response.data;
-                this.accounts = this.client.accounts;
+                this.account = response.data;
+                this.transactions = this.account.transactions
+                this.transactions.sort((a, b) => b.id - a.id);
+                console.log(this.transactions);
             })
             .catch(error => {
                 console.log(error);
@@ -23,8 +27,9 @@ const app = Vue.createApp({
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
             });
-        }
-    }
+        },
+}   
+
 },
 );
 app.mount('#app');

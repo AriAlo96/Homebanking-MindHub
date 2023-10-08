@@ -8,11 +8,12 @@
     --color1: rgb(7, 25, 82);
     --color2: rgb(11, 102, 106);
     --color3: rgb(53, 162, 159);
-    --color4: rgb(151, 254, 237);
+    --color4: rgba(139, 246, 228, 0.546);
 }
 
 .mainAccounts {
     min-height: 60vh;
+    
 }
 
 h1 {
@@ -23,8 +24,7 @@ h1 {
 }
 
 .nav-general {
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
+    background-color: var(--color4) ;
 }
 
 a {
@@ -35,5 +35,35 @@ a {
 
 a:hover {
     transform: scale(1.1);
-    color: var(--color3) !important;
+}
+
+.nav-footer{
+    background-color: var(--color4);
+}
+
+.p-footer{
+    padding-top: 1rem;
+    padding-right: 1rem;
+}
+
+.img-footer {
+    width: 2rem;
+    border-radius: 0.5rem;
+}
+.img-footer:hover {
+    transform: scale(0.8);
+}
+.container-Account-Table{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem
+}
+
+tbody tr.debit td {
+    background-color: rgb(242, 159, 159) !important;
+}
+
+tbody tr.credit td {
+    background-color: rgb(179, 244, 187) !important;
 }
