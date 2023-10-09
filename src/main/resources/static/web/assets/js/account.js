@@ -1,6 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
+            client: {},
             account: {},
             transactions: {},
         };
@@ -14,7 +15,14 @@ const app = Vue.createApp({
                 this.account = response.data;
                 this.transactions = this.account.transactions
                 this.transactions.sort((a, b) => b.id - a.id);
-                console.log(this.transactions);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        
+        axios.get("/api/clients/1")
+            .then(response => {
+                this.client = response.data;
             })
             .catch(error => {
                 console.log(error);

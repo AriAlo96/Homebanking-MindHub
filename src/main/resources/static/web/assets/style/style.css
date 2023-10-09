@@ -11,6 +11,10 @@
     --color4: rgba(139, 246, 228, 0.546);
 }
 
+[v-cloak] {
+    display: none !important;
+  }
+
 .mainAccounts {
     min-height: 60vh;
     
@@ -24,7 +28,8 @@ h1 {
 }
 
 .nav-general {
-    background-color: var(--color4) ;
+    background-color: var(--color4);
+    flex-direction: row !important;
 }
 
 a {
@@ -57,13 +62,68 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 1rem
+    padding: 1rem;
+    flex-wrap: wrap;
 }
 
 tbody tr.debit td {
-    background-color: rgb(242, 159, 159) !important;
+    background-color: rgb(243, 183, 183) !important;
 }
 
 tbody tr.credit td {
-    background-color: rgb(179, 244, 187) !important;
+    background-color: rgb(196, 242, 201) !important;
+}
+
+.button-card{
+    text-decoration: none;
+    color: var(--color3) !important;
+    background-color: var(--color1);
+    padding: 0.4rem;
+    border-radius: 2rem;
+
+}
+
+.button-card:hover {
+    transform: scale(1.04);
+}
+
+.image-card-me{
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.div-off-me{
+    width: 12rem !important;
+    background-color: rgba(139, 246, 228, 0.758) !important;
+}
+
+.div-off-profile-me {
+    width: 17rem !important;
+    background-color: rgba(7, 25, 82, 0.907) !important;  
+}
+
+table {
+    text-align: center !important;
+}  
+
+@media screen and (max-width: 575px){
+    .image-card-me{
+        width: 10rem; 
+        height: 10rem;
+    }
+}
+
+@media screen and (min-width: 600px){
+.nav-burger{
+    display: none !important;
+}
+}
+@media screen and (max-width: 600px){
+.nav-general{
+    display: none !important
+}
+.carous-img{
+    height: 12rem;
+    object-fit: cover;
+}
 }
