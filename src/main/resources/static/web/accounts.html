@@ -27,7 +27,7 @@
                             </button></a>
                     </div>
                     <a class="navbar-brand" href="./accounts.html"><img src="./assets/images/Logo.png" alt="Logo"
-                            height="60" class="d-inline-block align-text-top">
+                            height="80" class="d-inline-block align-text-top">
                     </a>
                     <a href="" style="padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                         aria-controls="offcanvasRight"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -39,20 +39,22 @@
                 </div>
             </nav>
 
-            <div class="offcanvas offcanvas-end div-off-profile-me" data-bs-scroll="true" tabindex="-1" id="offcanvasRight"
-                aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas offcanvas-end div-off-profile-me" data-bs-scroll="true" tabindex="-1"
+                id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-body d-flex flex-column gap-2">
                     <div>
-                        <a class="nav-link d-flex justify-content-end" href="./accounts.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="aliceblue" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <a class="nav-link d-flex justify-content-end" href="./accounts.html"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="aliceblue"
+                                class="bi bi-x-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path
                                     d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                             </svg></a>
                     </div>
                     <div>
-                        <a class="nav-link" href="#" style="color: aliceblue !important;">LOG OUT</a>   
-                        <a class="nav-link" aria-current="page" href="#" style="color: aliceblue !important;">{{client.email}}</a>
+                        <a class="nav-link" href="#" style="color: aliceblue !important;">LOG OUT</a>
+                        <a class="nav-link" aria-current="page" href="#"
+                            style="color: aliceblue !important;">{{client.email}}</a>
                     </div>
                 </div>
             </div>
@@ -61,8 +63,9 @@
                 aria-labelledby="offcanvasRightLabel1">
                 <div class="offcanvas-body d-flex flex-column gap-2">
                     <div>
-                        <a class="nav-link d-flex justify-content-end" href="./accounts.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <a class="nav-link d-flex justify-content-end" href="./accounts.html"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path
                                     d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -71,7 +74,7 @@
                     <div>
                         <a class="nav-link" aria-current="page" href="#">Accounts</a>
                         <a class="nav-link" href="#">Cards</a>
-                        <a class="nav-link" href="#">Loans</a>
+                        <a class="nav-link" href="#loans">Loans</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +83,7 @@
                 <div class="collapse navbar-collapse d-flex justify-content-around div-nav-a" id="navbarNav">
                     <a class="nav-link" aria-current="page" href="#">Accounts</a>
                     <a class="nav-link" href="#">Cards</a>
-                    <a class="nav-link" href="#">Loans</a>
+                    <a class="nav-link" href="#loans">Loans</a>
                 </div>
             </nav>
 
@@ -128,6 +131,30 @@
                                 <a class="button-card"
                                     :href="'http://localhost:8080/web/assets/pages/account.html?id=' + account.id">Transactions</a>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="loans">
+                <p class="d-flex justify-content-center gap-1" style="padding: 2rem;">
+                    <button class="btn btn-primary button-loans" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".multi-collapse" aria-expanded="false"
+                        aria-controls="multiCollapseExample1 multiCollapseExample2">Your Loans</button>
+                </p>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card-loans">
+                                <div v-if="loans.length !=0" class="card mb-3" v-for="loan of loans" style="margin: 1rem;">
+                                    <div class="card-body" style="width: 20rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
+                                        <h4 class="card-title">{{loan.loanName}} loan</h4>
+                                        <h5 class="card-text">Amount $ {{formatNumber(loan.loanAmount)}}
+                                        </h5>
+                                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments</small></p>
+                                    </div>
+                                </div>
+                                <h3 v-else>You have not applied for loans</h3>
                             </div>
                         </div>
                     </div>

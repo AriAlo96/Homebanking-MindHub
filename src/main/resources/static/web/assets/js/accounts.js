@@ -3,6 +3,7 @@ const app = Vue.createApp({
         return {
             client: {},
             accounts: {},
+            loans: {}
         };
     },
 
@@ -11,6 +12,7 @@ const app = Vue.createApp({
             .then(response => {
                 this.client = response.data;
                 this.accounts = this.client.accounts;
+                this.loans = this.client.loans
             })
             .catch(error => {
                 console.log(error);
