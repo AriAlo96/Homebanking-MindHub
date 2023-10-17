@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Bank - Accounts</title>
+    <link rel="shortcut icon" href="../images/Favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../style/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-body-tertiary">
+    <div id="app" v-cloak>
+        <header>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid d-flex justify-content-between">
+                    <div>
+                        <a class="nav-burger" href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1"
+                            aria-controls="offcanvasRight1"><button class="navbar-toggler" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                                aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button></a>
+                    </div>
+                    <a class="navbar-brand" href="./accounts.html"><img src="../images/Logo.png" alt="Logo" height="80"
+                            class="d-inline-block align-text-top">
+                    </a>
+                    <a href="" style="padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                        </svg></a>
+                </div>
+            </nav>
+
+            <div class="offcanvas offcanvas-end div-off-profile-me" data-bs-scroll="true" tabindex="-1"
+                id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-body d-flex flex-column gap-2">
+                    <div>
+                        <a class="nav-link d-flex justify-content-end" href="./cards.html"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="aliceblue"
+                                class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg></a>
+                    </div>
+                    <div>
+                        <a class="nav-link" href="#" style="color: aliceblue !important;">LOG OUT</a>
+                        <a class="nav-link" aria-current="page" href="#"
+                            style="color: aliceblue !important;">{{client.email}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="offcanvas offcanvas-start div-off-me" data-bs-scroll="true" tabindex="-1" id="offcanvasRight1"
+                aria-labelledby="offcanvasRightLabel1">
+                <div class="offcanvas-body d-flex flex-column gap-2">
+                    <div>
+                        <a class="nav-link d-flex justify-content-end" href="./cards.html"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg></a>
+                    </div>
+                    <div>
+                        <a class="nav-link" aria-current="page" href="#">Accounts</a>
+                        <a class="nav-link" href="#">Cards</a>
+                        <a class="nav-link" href="#loans">Loans</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="navbar navbar-expand-lg nav-general">
+                <div class="collapse navbar-collapse d-flex justify-content-around div-nav-a" id="navbarNav">
+                    <a class="nav-link" aria-current="page" href="../../accounts.html">Accounts</a>
+                    <a class="nav-link" href="./cards.html">Cards</a>
+                    <a class="nav-link" href="#">Loans</a>
+                </div>
+            </nav>
+
+        </header>
+        <main class="mainAccounts">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../images/Banner1.png" class="d-block w-100 carous-img" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/Banner2.png" class="d-block w-100 carous-img" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../images/Banner3.png" class="d-block w-100 carous-img" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="d-flex justify-content-around flex-wrap" style="padding: 3rem;">
+                <div class="d-flex flex-column">
+                    <h3 class="h3-cards">Debit Cards</h3>
+                    <div class="container-ext d-flex justify-content-around">
+                        <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
+                            <div class="card-inner-ext">
+                                <div class="front-ext" :class="{
+                                'card-gold-front': card.color === 'GOLD',
+                                'card-silver-front': card.color === 'SILVER',
+                                'card-titanium-front': card.color === 'TITANIUM'}">
+                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <div class="row-ext">
+                                        <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                            <p>Debit</p>
+                                        </div>
+                                    </div>
+                                    <div class="row-ext card-no-ext ">
+                                        <p style="letter-spacing: 2px;">{{card.number}}</p>
+                                    </div>
+                                    <div class="row-ext card-holder-ext  text-align-center">
+                                        <p>CARD HOLDER</p>
+                                        <p>VALID FROM</p>
+                                        <p>GOOD THRU</p>
+                                    </div>
+                                    <div class="row-ext name-ext text-align-center">
+                                        <p>{{card.cardHolder}}</p>
+                                        <p>{{card.fromDate}}</p>
+                                        <p>{{card.thruDate}}</p>
+                                    </div>
+                                </div>
+                                <div class="back-ext" :class="{
+                                'card-gold-back': card.color === 'GOLD',
+                                'card-silver-back': card.color === 'SILVER',
+                                'card-titanium-back': card.color === 'TITANIUM'}">
+                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <div class="bar-ext"></div>
+                                    <div class="row-ext card-cvv-ext">
+                                        <div>
+                                            <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                        </div>
+                                        <p>{{card.cvv}}</p>
+                                    </div>
+                                    <div class="row-ext card-text-ext">
+                                        <p>CUSTOMER SIGNATURE</p>
+                                    </div>
+                                    <div class="row-ext signature-ext">
+                                        <p>VISA service center (54 11) 43793434</p>
+                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else style="display: flex; flex-direction: column; align-items: center;">
+                            <h6>You don't have a debit card</h6>
+                            <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
+                        </div>
+                    </div>                  
+                </div>
+                <div class="d-flex flex-column">
+                    <h3 class="h3-cards">Credit Cards</h3>
+                    <div class="container-ext d-flex justify-content-around">
+                        <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
+                            <div class="card-inner-ext">
+                                <div class="front-ext" :class="{
+                                'card-gold-front': card.color === 'GOLD',
+                                'card-silver-front': card.color === 'SILVER',
+                                'card-titanium-front': card.color === 'TITANIUM'}">
+                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <div class="row-ext">
+                                        <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                            <p>Credit</p>
+                                        </div>
+                                    </div>
+                                    <div class="row-ext card-no-ext ">
+                                        <p style="letter-spacing: 2px;">{{card.number}}</p>
+                                    </div>
+                                    <div class="row-ext card-holder-ext text-align-center">
+                                        <p>CARD HOLDER</p>
+                                        <p>VALID FROM</p>
+                                        <p>GOOD THRU</p>
+                                    </div>
+                                    <div class="row-ext name-ext text-align-center">
+                                        <p>{{card.cardHolder}}</p>
+                                        <p>{{card.fromDate}}</p>
+                                        <p>{{card.thruDate}}</p>
+                                    </div>
+                                </div>
+                                <div class="back-ext" :class="{
+                                'card-gold-back': card.color === 'GOLD',
+                                'card-silver-back': card.color === 'SILVER',
+                                'card-titanium-back': card.color === 'TITANIUM'}">
+                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <div class="bar-ext"></div>
+                                    <div class="row-ext card-cvv-ext">
+                                        <div>
+                                            <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                        </div>
+                                        <p>{{card.cvv}}</p>
+                                    </div>
+                                    <div class="row-ext card-text-ext">
+                                        <p>CUSTOMER SIGNATURE</p>
+                                    </div>
+                                    <div class="row-ext signature-ext">
+                                        <p>VISA service center (54 11) 43793434</p>
+                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else style="display: flex; flex-direction: column; align-items: center;">
+                            <h6>You don't have a credit card</h6>
+                            <a class="button-card" style="text-align: center; width: 12rem;">Request credit card</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <nav class="navbar navbar-expand-lg container-fluid d-flex justify-content-between nav-footer">
+                <div class="imag" style="padding: 1rem;">
+                    <a class="icon-link" href="https://www.facebook.com/">
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#box-seam"></use>
+                        </svg>
+                        <img class="img-footer" src="../images/facebook.png" alt="facebook">
+                    </a>
+                    <a class="icon-link" href="https://www.instagram.com">
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#box-seam"></use>
+                        </svg>
+                        <img class="img-footer" src="../images/instagram.png" alt="instagram">
+                    </a>
+                    <a class="icon-link" href="https://web.whatsapp.com/">
+                        <svg class="bi" aria-hidden="true">
+                            <use xlink:href="#box-seam"></use>
+                        </svg>
+                        <img class="img-footer" src="../images/whatsapp.png" alt="whatsapp">
+                    </a>
+                </div>
+                <a href="../../accounts.html"><img src="../images/Favicon.png" alt="logo" height="50"></a>
+                <p class="p-footer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-c-circle" viewBox="0 0 16 16">
+                        <path
+                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512Z" />
+                    </svg> All rights reserved</p>
+            </nav>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+        </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="../js/cards.js"></script>
+</body>
+
+</html>

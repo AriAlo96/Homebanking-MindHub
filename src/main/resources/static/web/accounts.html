@@ -72,8 +72,8 @@
                             </svg></a>
                     </div>
                     <div>
-                        <a class="nav-link" aria-current="page" href="#">Accounts</a>
-                        <a class="nav-link" href="#">Cards</a>
+                        <a class="nav-link active" aria-current="page" href="./accounts.html">Accounts</a>
+                        <a class="nav-link" href="./assets/pages/cards.html">Cards</a>
                         <a class="nav-link" href="#loans">Loans</a>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
 
             <nav class="navbar navbar-expand-lg nav-general">
                 <div class="collapse navbar-collapse d-flex justify-content-around div-nav-a" id="navbarNav">
-                    <a class="nav-link" aria-current="page" href="#">Accounts</a>
-                    <a class="nav-link" href="#">Cards</a>
-                    <a class="nav-link" href="#loans">Loans</a>
+                    <a class="nav-link active" aria-current="page" href="#">Accounts</a>
+                    <a class="nav-link" href="./assets/pages/cards.html">Cards</a>
+                    <a class="nav-link" href="#">Loans</a>
                 </div>
             </nav>
 
@@ -113,7 +113,7 @@
                 </button>
             </div>
             <h1>¡Hi, {{client.firstName}}!</h1>
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around" style="flex-wrap: wrap;">
                 <div class="card mb-3" v-for="account of accounts" style="max-width: 540px;">
                     <div class="d-flex g-0 container-img-body">
                         <div class="col-sm-4 col-md-4">
@@ -122,8 +122,8 @@
                         </div>
                         <div class="col-md-8 card-body d-flex"
                             style="flex-direction: column; justify-content: space-around;">
-                            <h4 class="card-title"> Account: {{account.number}} </h4>
-                            <h2 class="card-title"> Balance: $ {{ formatNumber(account.balance)}} </h2>
+                            <h4 class="card-title title-card"> Account: {{account.number}} </h4>
+                            <h2 class="card-title h2-card"> Balance: $ {{ formatNumber(account.balance)}} </h2>
                             <p class="card-text"><small class="text-body-secondary"> Creation Date:
                                     {{account.creationDate}}</small>
                             </p>
@@ -145,11 +145,11 @@
                 <div class="row">
                     <div class="col">
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <div class="card-loans">
+                            <div class="card-loans" style="flex-wrap: wrap;">
                                 <div v-if="loans.length !=0" class="card mb-3" v-for="loan of loans" style="margin: 1rem;">
                                     <div class="card-body" style="width: 20rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
-                                        <h4 class="card-title">{{loan.loanName}} loan</h4>
-                                        <h5 class="card-text">Amount $ {{formatNumber(loan.loanAmount)}}
+                                        <h4 class="card-title card-title-loan">{{loan.loanName}} loan</h4>
+                                        <h5 class="card-text card-text-loan">Amount $ {{formatNumber(loan.loanAmount)}}
                                         </h5>
                                         <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments</small></p>
                                     </div>

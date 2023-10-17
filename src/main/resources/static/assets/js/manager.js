@@ -16,10 +16,10 @@ const app = Vue.createApp ({
     },
     methods:{
         loadData(){
-            axios.get("/clients")
+            axios.get("/api/clients")
             .then(response => {
-                this.clients = response.data._embedded.clients;
-                this.jsonResponse = response.data;
+                this.jsonResponse = response.data; 
+                this.clients = response.data;
             })
             .catch(error => {
                 console.log(error);
@@ -34,7 +34,7 @@ const app = Vue.createApp ({
             }
         },
         postClient(clientData){
-            axios.post("/clients", clientData)
+            axios.post("/rest/clients", clientData)
             .then (() => {
                 this.loadData();
             })
