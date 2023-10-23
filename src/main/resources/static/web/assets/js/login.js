@@ -30,7 +30,7 @@ const app = Vue.createApp({
         register(){
             axios.post('/api/clients', `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.emailRegister}&password=${this.passwordRegister}`)
             .then(response => {
-                location.href = `http://localhost:8080/web/accounts.html`
+                location.href = `http://localhost:8080/web/assets/pages/login.html`
             })
             .catch(error => {
                 console.log(error);

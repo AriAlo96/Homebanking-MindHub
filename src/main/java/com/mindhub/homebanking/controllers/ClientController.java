@@ -57,16 +57,15 @@ public class ClientController {
 
         }
 
+        Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
 
-
-        clientRepository.save(new Client(firstName, lastName, email, passwordEncoder.encode(password)));
+        clientRepository.save(newClient);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
     @RequestMapping("/clients/current")
-
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
     }
