@@ -30,6 +30,18 @@ const app = Vue.createApp({
     },
 
     methods: {
+        logout() {
+            axios
+                .post(`/api/logout`)
+                .then(response => {
+                    console.log("SingOut");
+                    location.href = `http://localhost:8080/index.html`;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
         formatNumber(number) {
             return number.toLocaleString("De-DE", {
                 minimumFractionDigits: 2,

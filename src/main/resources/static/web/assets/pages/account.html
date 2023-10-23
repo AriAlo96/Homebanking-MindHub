@@ -43,7 +43,7 @@
                 aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-body d-flex flex-column gap-2">
                     <div>
-                        <a class="nav-link d-flex justify-content-end" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <a class="nav-link d-flex justify-content-end" :href="'http://localhost:8080/web/assets/pages/account.html?id=' + account.id"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="aliceblue" class="bi bi-x-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path
@@ -51,8 +51,7 @@
                             </svg></a>
                     </div>
                     <div>
-                        <a class="nav-link" href="#" style="color: aliceblue !important;">LOG OUT</a>   
-                        <a class="nav-link" aria-current="page" href="#" style="color: aliceblue !important;">{{client.email}}</a>
+                        <a class="nav-link" style="color: aliceblue !important;" @click.prevent="logout()">LOG OUT</a>   
                     </div>
                 </div>
             </div>

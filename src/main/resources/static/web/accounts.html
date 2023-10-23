@@ -52,9 +52,7 @@
                             </svg></a>
                     </div>
                     <div>
-                        <a class="nav-link" href="#" style="color: aliceblue !important;">LOG OUT</a>
-                        <a class="nav-link" aria-current="page" href="#"
-                            style="color: aliceblue !important;">{{client.email}}</a>
+                        <a class="nav-link" style="color: aliceblue !important;" @click.prevent="logout()">LOG OUT</a>
                     </div>
                 </div>
             </div>
@@ -113,8 +111,9 @@
                 </button>
             </div>
             <h1>¡Hi, {{client.firstName}}!</h1>
+            <h2 style="font-size: 2rem; text-align: center; padding-bottom: 2rem; color: rgb(53, 162, 159);">Your accounts</h2>
             <div class="d-flex justify-content-around" style="flex-wrap: wrap;">
-                <div class="card mb-3" v-for="account of accounts" style="max-width: 540px;">
+                <div v-if="accounts.length !=0" class="card mb-3" v-for="account of accounts" style="max-width: 540px;">
                     <div class="d-flex g-0 container-img-body">
                         <div class="col-sm-4 col-md-4">
                             <img src="./assets/images/Image-Accounts.png" class="img-fluid rounded-start image-card-me"
@@ -135,31 +134,25 @@
                         </div>
                     </div>
                 </div>
+                <h3 v-else>You don't have accounts yet</h3>
             </div>
-            <div id="loans">
-                <p class="d-flex justify-content-center gap-1" style="padding: 2rem;">
-                    <button class="btn btn-primary button-loans" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="multiCollapseExample1 multiCollapseExample2">Your Loans</button>
-                </p>
-                <div class="row">
-                    <div class="col">
-                        <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <div class="card-loans" style="flex-wrap: wrap;">
-                                <div v-if="loans.length !=0" class="card mb-3" v-for="loan of loans" style="margin: 1rem;">
-                                    <div class="card-body" style="width: 20rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
-                                        <h4 class="card-title card-title-loan">{{loan.loanName}} loan</h4>
-                                        <h5 class="card-text card-text-loan">Amount $ {{formatNumber(loan.loanAmount)}}
-                                        </h5>
-                                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments</small></p>
-                                    </div>
-                                </div>
-                                <h3 v-else>You have not applied for loans</h3>
-                            </div>
-                        </div>
+
+            <h2 style="font-size: 2rem; text-align: center; padding-top: 3rem; color: rgb(53, 162, 159);">Your loans</h2>
+
+            <div class="card-loans" style="flex-wrap: wrap;">
+                <div v-if="loans.length !=0" class="card mb-3" v-for="loan of loans" style="margin: 1rem;">
+                    <div class="card-body"
+                        style="width: 20rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
+                        <h4 class="card-title card-title-loan">{{loan.loanName}} loan</h4>
+                        <h5 class="card-text card-text-loan">Amount $ {{formatNumber(loan.loanAmount)}}
+                        </h5>
+                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}}
+                                payments</small></p>
                     </div>
                 </div>
+                <h3 v-else>You have not applied for loans</h3>
             </div>
+
         </main>
         <footer>
             <nav class="navbar navbar-expand-lg container-fluid d-flex justify-content-between nav-footer">

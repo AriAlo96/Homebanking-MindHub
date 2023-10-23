@@ -48,6 +48,11 @@ a:hover {
     transform: scale(1.1);
 }
 
+.nav-link:hover {
+transform: none;
+cursor: pointer;
+}
+
 .nav-footer {
     background-color: var(--color4);
 }

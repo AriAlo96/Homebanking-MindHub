@@ -9,7 +9,7 @@ const app = Vue.createApp({
     },
 
     created() {
-        axios.get("/api/clients/1")
+        axios.get("/api/clients/current")
             .then(response => {
                 this.client = response.data;
                 this.cards = this.client.cards
@@ -23,6 +23,18 @@ const app = Vue.createApp({
     },
 
     methods: {
+        logout() {
+            axios
+                .post(`/api/logout`)
+                .then(response => {
+                    console.log("SingOut");
+                    location.href = `http://localhost:8080/index.html`;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
         formatNumber(number) {
             return number.toLocaleString("De-DE", {
                 minimumFractionDigits: 2,
