@@ -28,7 +28,7 @@ const app = Vue.createApp({
                 .post(`/api/logout`)
                 .then(response => {
                     console.log("SingOut");
-                    location.href = `http://localhost:8080/index.html`;
+                    location.pathname = `/index.html`;
                 })
                 .catch(error => {
                     console.log(error);

@@ -24,12 +24,22 @@ const app = Vue.createApp({
             axios
                 .post(`/api/logout`)
                 .then(response => {
-                    console.log("SingOut");
-                    location.href = `http://localhost:8080/index.html`;
+                    location.pathname = `/index.html`;
                 })
                 .catch(error => {
                     console.log(error);
                 });
+        },
+
+        createNewAccount(){
+            axios
+            .post(`api/clients/current/accounts`)
+            .then(response => {
+                location.pathname = `/web/accounts.html`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
 
         formatNumber(number) {

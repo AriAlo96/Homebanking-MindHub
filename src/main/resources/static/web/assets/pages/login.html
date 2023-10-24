@@ -12,8 +12,7 @@
 </head>
 
 <body>
-  <div id="app">
-
+  <div id="app" v-cloak>
     <nav class="navbar navbar-expand-lg nav-general">
       <div class="collapse navbar-collapse d-flex justify-content-around div-nav-a" id="navbarNav">
         <a class="nav-link active" style="color: rgb(18, 46, 137);" aria-current="page"
@@ -45,6 +44,9 @@
                     <input type="password" class="form-control" id="password" v-model="password" @keyup.enter="login()"
                       required>
                   </div>
+                  <div v-if="errorStatus === 401" class="alert alert-warning" role="alert">
+                    {{errorMessage}}
+                  </div>
 
                   <input @click.prevent="login()" style="background-color: rgb(53, 162, 159); border: none;"
                     type="button" value="Log In" class="btn btn-block btn-primary">
@@ -73,6 +75,9 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" v-model="passwordRegister"
                       @keyup.enter="register()" required>
+                  </div>
+                  <div v-if="errorRegister" class="alert alert-warning" role="alert">
+                    {{errorRegister}}
                   </div>
                   <input @click.prevent="register()" @keyup.enter="register()"
                     style="background-color: rgb(53, 162, 159); border: none;" type="button" value="Register"

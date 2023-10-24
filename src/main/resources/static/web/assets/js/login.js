@@ -8,6 +8,9 @@ const app = Vue.createApp({
             lastName: "",
             emailRegister: "",
             passwordRegister: "",
+            exitMessage: "",
+            errorStatus: null,
+            errorRegister: ""
         };
     },
 
@@ -16,25 +19,33 @@ const app = Vue.createApp({
     },
     methods: {
         login() {
-            axios
-                .post('/api/login', `email=${this.email}&password=${this.password}`)
+            axios.post('/api/login', `email=${this.email}&password=${this.password}`)
                 .then(response => {
-                    location.href = `http://localhost:8080/web/accounts.html`;
+                    location.pathname = `/web/accounts.html`;
                 })
                 .catch(error => {
-                    console.log(error);
-                    this.errorMessage = "Incorrect credentials. Please try again."
+                    if (error.response && error.response.status === 401) {
+                        this.errorStatus = 401
+                        this.errorMessage = "Incorrect credentials. Please try again."
+                    } else {
+                        this.errorStatus = null
+                    }
                 });
         },
 
-        register(){
+        register() {
             axios.post('/api/clients', `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.emailRegister}&password=${this.passwordRegister}`)
-            .then(response => {
-                location.href = `http://localhost:8080/web/assets/pages/login.html`
-            })
-            .catch(error => {
-                console.log(error);
-            });
+                .then(() => {
+                    axios.post('/api/login', `email=${this.emailRegister}&password=${this.passwordRegister}`)
+                        .then(() => location.pathname = `/web/accounts.html`)
+                        .catch(error => {
+                            console.log(error);
+                        });
+                })
+                .catch(error => {
+                    this.errorRegister = error.response.data;
+                });
+
         }
     }
 })
