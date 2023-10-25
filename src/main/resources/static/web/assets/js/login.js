@@ -43,8 +43,14 @@ const app = Vue.createApp({
                         });
                 })
                 .catch(error => {
-                    this.errorRegister = error.response.data;
-                });
+                    let errorMessage = error.response.data;
+                    errorMessage = errorMessage.replace(/\n/g, '<br>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        html: errorMessage,
+                    });
+            });
 
         }
     }

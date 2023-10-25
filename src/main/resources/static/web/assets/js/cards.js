@@ -4,7 +4,9 @@ const app = Vue.createApp({
             client: {},
             cards: [],
             creditCards: [],
-            debitCards: []
+            debitCards: [],
+            cardType: "",
+            cardColor: ""
         };
     },
 
@@ -34,6 +36,44 @@ const app = Vue.createApp({
                     console.log(error);
                 });
         },
+
+        createNewCard() {
+            Swal.fire({
+                title: 'Do you want to create a new card?',
+                text: 'Remember that you can only have 3 cards',
+                showCancelButton: true,
+                cancelButtonText: 'Cancell',
+                confirmButtonText: 'Yes',
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#dc3545',
+                showClass: {
+                  popup: 'swal2-noanimation',
+                  backdrop: 'swal2-noanimation'
+                },
+                hideClass: {
+                  popup: '',
+                  backdrop: ''
+            }, preConfirm: () => {
+            axios.post(`/api/clients/current/cards`, `type=${this.cardType}&color=${this.cardColor}`)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Successfully created account',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    })
+                    location.pathname = `/web/assets/pages/cards.html`;
+                })
+                .catch(error => {
+                    Swal.fire({
+                      icon: 'error',
+                      text: error.response.data,
+                      confirmButtonColor: "#7c601893",
+                    });
+            });
+            },
+        })
+    },
 
         formatNumber(number) {
             return number.toLocaleString("De-DE", {

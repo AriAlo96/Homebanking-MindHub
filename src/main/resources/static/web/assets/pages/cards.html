@@ -110,21 +110,26 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="d-flex justify-content-around flex-wrap" style="padding: 3rem;">
+
+
+            <div class="d-flex justify-content-around flex-wrap" style="padding: 1rem;">
+                <h2 style="font-size: 3rem; text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Your cards
+                </h2>
                 <div class="d-flex flex-column">
-                    <h3 class="h3-cards">Debit Cards</h3>
-                    <div class="container-ext d-flex justify-content-around">
+                    <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Debit Cards</h3>
+                    <div class="container-ext d-flex gap-2 flex-wrap">
                         <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
                             <div class="card-inner-ext">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
                                 'card-silver-front': card.color === 'SILVER',
                                 'card-titanium-front': card.color === 'TITANIUM'}">
-                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <img src="../images/mapa-mundial.png" style="object-position: center;"
+                                        class="map-img-ext">
                                     <div class="row-ext">
-                                        <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                        <img src="../images/chip-tarjeta.png" style="height: 3rem;">
                                         <div class="d-flex flex-column align-items-end">
-                                            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                            <img src="../images/logo-visa.png" style="height: 2rem;">
                                             <p>Debit</p>
                                         </div>
                                     </div>
@@ -146,11 +151,12 @@
                                 'card-gold-back': card.color === 'GOLD',
                                 'card-silver-back': card.color === 'SILVER',
                                 'card-titanium-back': card.color === 'TITANIUM'}">
-                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                    <img src="../images/mapa-mundial.png" style="object-position: center;"
+                                        class="map-img-ext">
                                     <div class="bar-ext"></div>
                                     <div class="row-ext card-cvv-ext">
                                         <div>
-                                            <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                            <img src="../images/rectangulo-blanco.png" style="height: 2.5rem; object-fit: cover;">
                                         </div>
                                         <p>{{card.cvv}}</p>
                                     </div>
@@ -159,7 +165,7 @@
                                     </div>
                                     <div class="row-ext signature-ext">
                                         <p>VISA service center (54 11) 43793434</p>
-                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                        <img src="../images/logo-visa.png" style="height: 1.5rem;">
                                     </div>
                                 </div>
                             </div>
@@ -168,22 +174,22 @@
                             <h6>You don't have a debit card</h6>
                             <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
                 <div class="d-flex flex-column">
-                    <h3 class="h3-cards">Credit Cards</h3>
-                    <div class="container-ext d-flex justify-content-around">
+                    <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Credit Cards</h3>
+                    <div class="container-ext d-flex gap-2 flex-wrap">
                         <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
                             <div class="card-inner-ext">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
                                 'card-silver-front': card.color === 'SILVER',
                                 'card-titanium-front': card.color === 'TITANIUM'}">
-                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <img src="../images/mapa-mundial.png" style="object-position: center;" class="map-img-ext">
                                     <div class="row-ext">
-                                        <img src="https://i.ibb.co/G9pDnYJ/chip.png" style="height: 3rem;">
+                                        <img src="../images/chip-tarjeta.png" style="height: 3rem;">
                                         <div class="d-flex flex-column align-items-end">
-                                            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 2rem;">
+                                            <img src="../images/logo-visa.png" style="height: 2rem;">
                                             <p>Credit</p>
                                         </div>
                                     </div>
@@ -205,11 +211,11 @@
                                 'card-gold-back': card.color === 'GOLD',
                                 'card-silver-back': card.color === 'SILVER',
                                 'card-titanium-back': card.color === 'TITANIUM'}">
-                                    <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img-ext">
+                                <img src="../images/mapa-mundial.png" style="object-position: center;" class="map-img-ext">
                                     <div class="bar-ext"></div>
                                     <div class="row-ext card-cvv-ext">
                                         <div>
-                                            <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                            <img src="../images/rectangulo-blanco.png" style="height: 2.5rem; object-fit: cover;">
                                         </div>
                                         <p>{{card.cvv}}</p>
                                     </div>
@@ -218,7 +224,7 @@
                                     </div>
                                     <div class="row-ext signature-ext">
                                         <p>VISA service center (54 11) 43793434</p>
-                                        <img src="https://i.ibb.co/WHZ3nRJ/visa.png" style="height: 1.5rem;">
+                                        <img src="../images/logo-visa.png" style="height: 1.5rem;">
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +232,41 @@
                         <div v-else style="display: flex; flex-direction: column; align-items: center;">
                             <h6>You don't have a credit card</h6>
                             <a class="button-card" style="text-align: center; width: 12rem;">Request credit card</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" v-if="cards.length < 6">
+                <a type="button" class="button-card"
+                    style="background-color: rgb(53, 162, 159); margin-bottom: 3rem; font-size: 1.3rem !important;"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Create Card
+                </a>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Select type and color card</h1>
+                        </div>
+                        <div class="modal-body">
+                            <select v-model="cardType" class="form-select" style="margin-bottom: 1rem;"
+                                aria-label="Default select example">
+                                <option value="" selected>Card type</option>
+                                <option v-if="debitCards.length<3" value="DEBIT">DEBIT</option>
+                                <option v-if="creditCards.length<3" value="CREDIT">CREDIT</option>
+                            </select>
+                            <select v-model="cardColor" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Card color</option>
+                                <option value="GOLD">GOLD</option>
+                                <option value="SILVER">SILVER</option>
+                                <option value="TITANIUM">TITANIUM</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" @click="createNewCard()">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -269,6 +310,7 @@
         </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../js/cards.js"></script>
 </body>
 
