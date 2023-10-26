@@ -38,6 +38,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT");
 
+
         http.formLogin()
 
                 .usernameParameter("email")
