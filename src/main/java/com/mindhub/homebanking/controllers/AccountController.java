@@ -40,7 +40,7 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public  ResponseEntity<Object> createAccount (Authentication authentication) {
+    public ResponseEntity<Object> createAccount (Authentication authentication) {
         Client client = (clientRepository.findByEmail(authentication.getName()));
         if (client == null) {
             throw new UsernameNotFoundException("Unknow client " + authentication.getName());
