@@ -119,7 +119,7 @@
                                 <div class="col-md-8 card-body d-flex"
                                     style="flex-direction: column; justify-content: space-around;">
                                     <h4 class="card-title"> Account: {{account.number}} </h4>
-                                    <h2 class="card-title"> Balance: $ {{ formatNumber(Number(account.balance)) }} </h2>
+                                    <h2 class="card-title"> Balance: US$ {{ formatNumber(Number(account.balance)) }} </h2>
                                     <p class="card-text"><small class="text-body-secondary"> Creation Date:
                                             {{account.creationDate}}</small>
                                     </p>
@@ -143,7 +143,7 @@
                             <tr v-for="transaction of transactions"
                                 :class="transaction.type === 'DEBIT' ? 'debit' : 'credit'">
                                 <td scope="row">{{transaction.type}}</td>
-                                <td> $ {{formatNumber(Number(transaction.amount))}}</td>
+                                <td> US$ {{formatNumber(Number(transaction.amount))}}</td>
                                 <td>{{transaction.date}}</td>
                                 <td>{{transaction.description}}</td>
                             </tr>                                                      

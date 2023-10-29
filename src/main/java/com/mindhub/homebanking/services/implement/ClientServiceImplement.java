@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -51,10 +52,10 @@ public class ClientServiceImplement implements ClientService {
     }
 
     @Override
-    public ResponseEntity<Object> register(String firstName,
-                                           String lastName,
-                                           String email,
-                                           String password) {
+    public ResponseEntity<Object> register(@RequestParam String firstName,
+                                           @RequestParam String lastName,
+                                           @RequestParam String email,
+                                           @RequestParam String password) {
 
         if (firstName.isBlank()) {
             return new ResponseEntity<>("You must enter your name",HttpStatus.FORBIDDEN);
