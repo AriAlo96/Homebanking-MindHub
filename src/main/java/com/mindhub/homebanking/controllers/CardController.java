@@ -42,8 +42,8 @@ public class CardController {
             throw new UsernameNotFoundException("Unknow client " + authentication.getName());
         }
         if ((client.getCards().stream().filter(card -> card.getType() == type).count() < 3)) {
-                Card card = new Card((client.getFirstName() + client.getLastName()), type,
-                        color, (generateNumber(1, 10000) + " " + generateNumber(1, 10000) + " " +  generateNumber(1, 10000) + " " + generateNumber(1, 10000)),  generateCvv(1, 1000) , LocalDate.now().plusYears(5), LocalDate.now());
+                Card card = new Card((client.getFirstName().toUpperCase() + " " + client.getLastName().toUpperCase()), type,
+                        color, generateNumber(1, 10000) ,  generateCvv(1, 1000) , LocalDate.now().plusYears(5), LocalDate.now());
                 cardRepository.save(card);
                 client.addCard(card);
                 clientRepository.save(client);
@@ -55,33 +55,29 @@ public class CardController {
 
 
     private String generateNumber(int min, int max) {
-        List<CardDTO> cards = cardRepository.findAll().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
-        Set<String> setCards = cards.stream().map(cardDTO ->
-                cardDTO.getNumber()
-        ).collect(Collectors.toSet());
-        long number;
+        long number1;
+        long number2;
+        long number3;
+        long number4;
         String numberCompleted;
         do{
-            number = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber = String.format("%04d", number);
-            numberCompleted = formattedNumber;
-        } while (setCards.contains(numberCompleted));
+            number1 = (int) ((Math.random() * (max - min)) + min);
+            String formattedNumber1 = String.format("%04d", number1);
+            number2 = (int) ((Math.random() * (max - min)) + min);
+            String formattedNumber2 = String.format("%04d", number2);
+            number3 = (int) ((Math.random() * (max - min)) + min);
+            String formattedNumber3 = String.format("%04d", number3);
+            number4 = (int) ((Math.random() * (max - min)) + min);
+            String formattedNumber4 = String.format("%04d", number4);
+            numberCompleted = formattedNumber1 + " " + formattedNumber2 + " " + formattedNumber3 + " " + formattedNumber4;
+        } while (cardRepository.existsByNumber(numberCompleted));
         return  numberCompleted;
     }
 
     private String generateCvv(int min, int max) {
-        List<CardDTO> cards = cardRepository.findAll().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
-        Set<String> setCards = cards.stream().map(cardDTO ->
-                cardDTO.getNumber()
-        ).collect(Collectors.toSet());
-        long number;
-        String numberCompleted;
-        do{
-            number = (int) ((Math.random() * (max - min)) + min);
+            int number = (int) ((Math.random() * (max - min)) + min);
             String formattedNumber = String.format("%03d", number);
-            numberCompleted = formattedNumber;
-        } while (setCards.contains(numberCompleted));
-        return  numberCompleted;
+        return  formattedNumber;
     }
 
 }

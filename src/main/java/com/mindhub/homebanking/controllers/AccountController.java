@@ -62,10 +62,6 @@ public class AccountController {
         }
     }
     private String generateNumber(int min, int max) {
-        List<AccountDTO> accounts = getAllAccounts();
-        Set<String> setAccounts = accounts.stream().map(accountDTO ->
-            accountDTO.getNumber()
-        ).collect(Collectors.toSet());
         String aux = "VIN";
        long number;
        String numbercompleted;
@@ -73,7 +69,7 @@ public class AccountController {
            number = (int) ((Math.random() * (max - min)) + min);
            String formattedNumber = String.format("%03d", number);
            numbercompleted = aux + formattedNumber;
-       } while (setAccounts.contains(numbercompleted));
+       } while (accountRepository.existsByNumber(numbercompleted));
        return  numbercompleted;
     }
     }

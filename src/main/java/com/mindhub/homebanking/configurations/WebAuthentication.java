@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
-@Autowired
+    @Autowired
     ClientRepository clientRepository;
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -27,9 +27,9 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             if (client != null) {
                 if (client.getEmail().contains("savingsbank")) {
                     return new User(client.getEmail(), client.getPassword(),
-                        AuthorityUtils.commaSeparatedStringToAuthorityList ("ADMIN , CLIENT"));
+                        AuthorityUtils.commaSeparatedStringToAuthorityList ("ADMIN,CLIENT"));
                 }else {
-                return new User(client.getEmail(), client.getPassword(),
+                    return new User(client.getEmail(), client.getPassword(),
                         AuthorityUtils.createAuthorityList("CLIENT"));
             }
             } else {
