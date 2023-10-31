@@ -24,16 +24,11 @@ import java.util.stream.Collectors;
 @Service
 public class ClientServiceImplement implements ClientService {
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     @Autowired
-    PasswordEncoder passwordEncoder;
-    @Override
-    public void saveClient(Client client) {
-        clientRepository.save(client);
-    }
-
+    private PasswordEncoder passwordEncoder;
     @Override
     public List<ClientDTO> getAllClients() {
         List<ClientDTO> clients = clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());

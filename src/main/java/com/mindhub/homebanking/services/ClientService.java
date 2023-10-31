@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface ClientService {
-    void saveClient(Client client);
     public List<ClientDTO> getAllClients();
     public ClientDTO getClient(Long id);
     public ClientDTO getAll(Authentication authentication);
