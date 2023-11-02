@@ -44,29 +44,29 @@ public class LoanController {
         }
     }
 
-    @Transactional
-    @PostMapping("/loans")
-    public ResponseEntity<Object> applyForLoan (Authentication authentication, @RequestBody
-                                                LoanApplicationDTO loanApplicationDTO) {
-        Client client = clientRepository.findByEmail(authentication.getName());
-        Optional<Loan> loan = loanRepository.findById(loanApplicationDTO.getLoanId());
-        Account account = accountRepository.findByNumber(loanApplicationDTO.getDestinationAccount());
-        if (client == null) {
-            return new ResponseEntity<>("Unknow client " + authentication.getName(),
-                    HttpStatus.UNAUTHORIZED);
-        }
-        if (loanApplicationDTO.getLoanId() == 0) {
-            return new ResponseEntity<>("The type of loan is required", HttpStatus.FORBIDDEN);
-        }
-        if (loanApplicationDTO.getAmount() == 0) {
-            return new ResponseEntity<>("The amount of loan is required", HttpStatus.FORBIDDEN);
-        }
-        if (loanApplicationDTO.getPayments() == 0) {
-            return new ResponseEntity<>("The number of payments is required", HttpStatus.FORBIDDEN);
-        }
-        if (loanApplicationDTO.getDestinationAccount().isBlank()) {
-            return new ResponseEntity<>("The destination account is required", HttpStatus.FORBIDDEN);
-        }
-
-        }
+//    @Transactional
+//    @PostMapping("/loans")
+//    public ResponseEntity<Object> applyForLoan (Authentication authentication, @RequestBody
+//                                                LoanApplicationDTO loanApplicationDTO) {
+//        Client client = clientRepository.findByEmail(authentication.getName());
+//        Optional<Loan> loan = loanRepository.findById(loanApplicationDTO.getLoanId());
+//        Account account = accountRepository.findByNumber(loanApplicationDTO.getDestinationAccount());
+//        if (client == null) {
+//            return new ResponseEntity<>("Unknow client " + authentication.getName(),
+//                    HttpStatus.UNAUTHORIZED);
+//        }
+//        if (loanApplicationDTO.getLoanId() == 0) {
+//            return new ResponseEntity<>("The type of loan is required", HttpStatus.FORBIDDEN);
+//        }
+//        if (loanApplicationDTO.getAmount() == 0) {
+//            return new ResponseEntity<>("The amount of loan is required", HttpStatus.FORBIDDEN);
+//        }
+//        if (loanApplicationDTO.getPayments() == 0) {
+//            return new ResponseEntity<>("The number of payments is required", HttpStatus.FORBIDDEN);
+//        }
+//        if (loanApplicationDTO.getDestinationAccount().isBlank()) {
+//            return new ResponseEntity<>("The destination account is required", HttpStatus.FORBIDDEN);
+//        }
+//
+//        }
 }

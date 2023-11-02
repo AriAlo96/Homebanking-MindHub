@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.dtos;
 
-
 public class LoanApplicationDTO {
     private Long loanId;
     private double amount;
