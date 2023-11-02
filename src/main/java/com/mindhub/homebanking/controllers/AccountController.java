@@ -19,7 +19,7 @@ public class AccountController {
     @RequestMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){return accountService.getAllAccounts();}
     @RequestMapping("/accounts/{id}")
-    public AccountDTO getAccount(@PathVariable Long id){return accountService.getAccount(id);}
+    public ResponseEntity<Object> getAccount(Authentication authentication , @PathVariable Long id){return accountService.getAccount(authentication,id);}
     @RequestMapping("/clients/current/accounts")
     public List<AccountDTO> getAll(Authentication authentication) {return accountService.getAll(authentication);}
     @PostMapping("/clients/current/accounts")

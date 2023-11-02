@@ -36,7 +36,7 @@ public class TransactionServiceImplement implements TransactionService {
         Account accountDebit = accountRepository.findByNumber(originNumber);
         Account accountCredit = accountRepository.findByNumber(destinationNumber);
         if (client == null) {
-            throw new UsernameNotFoundException("Unknow client " + authentication.getName());
+            return new ResponseEntity<>("Unknow client " + authentication.getName(), HttpStatus.UNAUTHORIZED);
         }
 
         if (accountDebit.getClient() != client) {

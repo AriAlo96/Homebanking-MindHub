@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 @Service
 public class AccountServiceImplement implements AccountService {
@@ -29,9 +30,14 @@ public class AccountServiceImplement implements AccountService {
         return accounts;
     }
     @Override
-    public AccountDTO getAccount(@PathVariable Long id){
+    public ResponseEntity<Object> getAccount(Authentication authentication , @PathVariable Long id){
+        Client client = (clientRepository.findByEmail(authentication.getName()));
+        Set<Long> accountsId = client.getAccounts().stream().map(account -> account.getId()).collect(Collectors.toSet());
+        if (!accountsId.contains(id)) {
+            return new ResponseEntity<>("the account does not belong to the authenticated client" , HttpStatus.FORBIDDEN);
+        }
         AccountDTO foundAccount = accountRepository.findById(id).map(account -> new AccountDTO(account)).orElse(null);
-        return foundAccount;
+        return new ResponseEntity<>(foundAccount,HttpStatus.CREATED);
     }
     @Override
     public List<AccountDTO> getAll(Authentication authentication) {
@@ -43,7 +49,7 @@ public class AccountServiceImplement implements AccountService {
     public ResponseEntity<Object> createAccount (Authentication authentication) {
         Client client = (clientRepository.findByEmail(authentication.getName()));
         if (client == null) {
-            throw new UsernameNotFoundException("Unknow client " + authentication.getName());
+            return new ResponseEntity<>("The client was not found", HttpStatus.NOT_FOUND);
         }
         if (client.getAccounts().size() <3){
             Account account = new Account(generateNumber(1, 100000000), LocalDate.now(), 0);

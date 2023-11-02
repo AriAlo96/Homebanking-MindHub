@@ -4,6 +4,7 @@ const app = Vue.createApp({
             client: {},
             account: {},
             transactions: {},
+            messageError: ""
         };
     },
 
@@ -17,7 +18,7 @@ const app = Vue.createApp({
                 this.transactions.sort((a, b) => b.id - a.id);
             })
             .catch(error => {
-                console.log(error);
+                this.messageError = error.response.data;
             });
         
         axios.get("/api/clients/current")
