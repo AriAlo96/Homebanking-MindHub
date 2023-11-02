@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Service
 public class TransactionServiceImplement implements TransactionService {
     @Autowired
-    private com.mindhub.homebanking.repositories.TransactionRepository TransactionRepository;
+    private com.mindhub.homebanking.repositories.TransactionRepository transactionRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
@@ -69,9 +69,9 @@ public class TransactionServiceImplement implements TransactionService {
                     accountCredit.getNumber() + description,
                     LocalDateTime.now());
 
-            TransactionRepository.save(transactionDebit);
+            transactionRepository.save(transactionDebit);
             accountDebit.addTransaction(transactionDebit);
-            TransactionRepository.save(transactionCredit);
+            transactionRepository.save(transactionCredit);
             accountCredit.addTransaction(transactionCredit);
 
             accountDebit.setBalance(accountDebit.getBalance() - amount);
