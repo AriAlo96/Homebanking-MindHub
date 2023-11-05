@@ -13,6 +13,7 @@ const app = Vue.createApp({
                 this.client = response.data;
                 this.accounts = this.client.accounts;
                 this.loans = this.client.loans
+                console.log(this.loans);
             })
             .catch(error => {
                 console.log(error);
@@ -75,6 +76,10 @@ const app = Vue.createApp({
                 maximumFractionDigits: 2,
             });
         },
+
+        dateFormat(date) {
+            return moment(date).format('lll');
+        }
     }
 },
 );

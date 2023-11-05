@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountDTO {
-    private Long id;
+    private long id;
     private String number;
     private LocalDate creationDate;
     private double balance;
@@ -28,7 +28,7 @@ public class AccountDTO {
                 .collect(Collectors.toSet());
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

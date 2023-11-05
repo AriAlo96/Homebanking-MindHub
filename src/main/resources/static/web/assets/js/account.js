@@ -49,6 +49,10 @@ const app = Vue.createApp({
                 maximumFractionDigits: 2,
             });
         },
+
+        dateFormat(date) {
+            return moment(date).format('lll');
+        }
 }   
 
 },
