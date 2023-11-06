@@ -56,12 +56,14 @@ const app = Vue.createApp({
             axios.post(`/api/clients/current/cards`, `type=${this.cardType}&color=${this.cardColor}`)
                 .then(() => {
                     Swal.fire({
-                        icon: 'success',
-                        text: 'Successfully created account',
-                        showConfirmButton: false,
-                        timer: 2000,
-                    })
-                    location.pathname = `/web/assets/pages/cards.html`;
+                        title: "Successfully created card",
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.pathname = `/web/assets/pages/cards.html`;
+                        }
+                      });      
                 })
                 .catch(error => {
                     Swal.fire({

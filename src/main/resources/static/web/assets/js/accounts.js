@@ -52,12 +52,15 @@ const app = Vue.createApp({
             axios.post(`/api/clients/current/accounts`)
                 .then(() => {
                     Swal.fire({
-                        icon: 'success',
-                        text: 'Successfully created account',
-                        showConfirmButton: false,
-                        timer: 2000,
-                    })
-                    location.pathname = `/web/accounts.html`;
+                        title: "Successfully created account",
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.pathname = `/web/accounts.html`;
+                        }
+                      });   
+                    
                 })
                 .catch(error => {
                     Swal.fire({

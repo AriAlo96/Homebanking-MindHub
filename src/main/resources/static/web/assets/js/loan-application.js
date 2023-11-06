@@ -48,12 +48,14 @@ const app = Vue.createApp({
             axios.post("/api/loans",{"loanId":`${this.loanId}`, "amount":`${this.amount}`, "payments": `${this.payments}`, "destinationAccount": `${this.destinationAccount}`})
             .then(() => {
                 Swal.fire({
-                    icon: 'success',
-                    text: 'Loan requested successfully',
-                    showConfirmButton: true,
-                    timer: 5000,
-                })
-                location.pathname = `/web/assets/pages/loan-application.html`;
+                    title: "Successful loan application",
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.pathname = `/web/assets/pages/loan-application.html`;
+                    }
+                  });             
             })
             .catch(error => {
                 Swal.fire({

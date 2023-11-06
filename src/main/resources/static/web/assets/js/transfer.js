@@ -40,12 +40,15 @@ const app = Vue.createApp({
             axios.post(`/api/clients/current/transfers`, `amount=${this.amount}&description=${this.description}&originNumber=${this.originNumber}&destinationNumber=${this.destinationNumber}`)
                 .then(() => {
                     Swal.fire({
-                        icon: 'success',
-                        text: 'Successfully created account',
-                        showConfirmButton: true,
-                        timer: 5000,
-                    })
-                    location.pathname = `/web/assets/pages/transfers.html`;
+                        title: "Transfer completed successfully",
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.pathname = `/web/assets/pages/transfers.html`;
+                        }
+                      });    
+                    
                 })
                 .catch(error => {
                     Swal.fire({
