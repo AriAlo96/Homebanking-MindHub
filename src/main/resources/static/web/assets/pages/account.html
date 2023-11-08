@@ -147,7 +147,7 @@
                                 :class="transaction.type === 'DEBIT' ? 'debit' : 'credit'">
                                 <td scope="row">{{transaction.type}}</td>
                                 <td> US$ {{formatNumber(Number(transaction.amount))}}</td>
-                                <td>{{transaction.date}}</td>
+                                <td>{{dateFormat(transaction.date)}}</td>
                                 <td>{{transaction.description}}</td>
                             </tr>                                                      
                         </tbody>

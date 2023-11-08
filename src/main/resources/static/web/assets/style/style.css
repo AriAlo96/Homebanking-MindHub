@@ -79,12 +79,12 @@ cursor: pointer;
     flex-wrap: wrap;
 }
 
-tbody tr.debit td {
-    background-color: rgb(243, 183, 183) !important;
+tr.debit td {
+    background-color: rgb(243, 206, 206) !important;
 }
 
-tbody tr.credit td {
-    background-color: rgb(196, 242, 201) !important;
+tr.credit td {
+    background-color: rgb(205, 239, 208) !important;
 }
 
 .button-card {

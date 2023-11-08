@@ -50,8 +50,10 @@ const app = Vue.createApp({
             });
         },
 
-        dateFormat(date) {
-            return moment(date).format('lll');
+        dateFormat(dateString) {
+            const date = new Date(dateString);
+            const formatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            return date.toLocaleDateString('es-ES', formatOptions);
         }
 }   
 

@@ -104,7 +104,7 @@
 
                             <div class="input-group mb-3">
                                 <select v-model="loanId" class="form-select" aria-label="Default select example">
-                                    <option :value="">Select the type of loan</option>
+                                    <option value="0" selected>Select the type of loan</option>
                                     <option v-for="loan in loans" :value="loan.id">{{ loan.name }} (Max amount: US$ {{formatNumber(Number(loan.maxAmount))}})</option>
                                 </select>
                             </div>                            
