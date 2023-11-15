@@ -16,4 +16,5 @@ public interface AccountService {
     boolean existsAccountByNumber (String number);
     Account findAccountByNumber (String number);
     Account findById (Long id);
+    boolean existsByActive (boolean active);
 }

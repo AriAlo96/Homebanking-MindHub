@@ -39,7 +39,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/api/clients/current" , "/api/accounts/{id}" , "/api/clients/current/accounts" , "/api/loans").hasAuthority("CLIENT")
 
-                .antMatchers(HttpMethod.PUT, "/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PUT, "/api/clients/current/cards" , "/api/clients/current/accounts").hasAuthority("CLIENT")
 
         .anyRequest().denyAll();
 

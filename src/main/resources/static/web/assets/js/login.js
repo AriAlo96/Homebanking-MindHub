@@ -10,7 +10,8 @@ const app = Vue.createApp({
             passwordRegister: "",
             exitMessage: "",
             errorStatus: null,
-            errorRegister: ""
+            errorRegister: "",
+            showRegisterForm: false
         };
     },
 
@@ -52,6 +53,9 @@ const app = Vue.createApp({
                     });
             });
 
+        },
+        toggleRegisterForm(){
+            this.showRegisterForm = !this.showRegisterForm;
         }
     }
 })

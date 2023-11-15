@@ -3,7 +3,8 @@ const app = Vue.createApp({
         return {
             client: {},
             accounts: {},
-            loans: {}
+            accountsActives: {},
+            loans: {},
         };
     },
 
@@ -12,8 +13,9 @@ const app = Vue.createApp({
             .then(response => {
                 this.client = response.data;
                 this.accounts = this.client.accounts;
+                this.accountsActives = this.filterAccountsActives()
+                console.log(this.accountsActives);
                 this.loans = this.client.loans
-                console.log(this.loans);
             })
             .catch(error => {
                 console.log(error);
@@ -72,6 +74,50 @@ const app = Vue.createApp({
             },
         })
     },
+
+    deleteAccount(id) {
+        Swal.fire({
+            title: 'Do you want to delete account?',
+            text: 'This action cannot be reversed',
+            showCancelButton: true,
+            cancelButtonText: 'Cancell',
+            confirmButtonText: 'Yes',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#dc3545',
+            showClass: {
+              popup: 'swal2-noanimation',
+              backdrop: 'swal2-noanimation'
+            },
+            hideClass: {
+              popup: '',
+              backdrop: ''
+        }, preConfirm: () => {
+        axios.put(`/api/clients/current/accounts`, `id=${id}`)
+            .then(() => {
+                Swal.fire({
+                    title: "Successfully created account",
+                    icon: "success",
+                    confirmButtonColor: "#3085d6",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.pathname = `/web/accounts.html`;
+                    }
+                  });    
+            })
+            .catch(error => {
+                Swal.fire({
+                  icon: 'error',
+                  text: error.response.data,
+                  confirmButtonColor: "#7c601893",
+                });
+        });
+        },
+    })
+},
+    filterAccountsActives(){
+     return this.accounts.filter(accounts => accounts.active)
+    },
+
 
         formatNumber(number) {
             return number.toLocaleString("De-DE", {

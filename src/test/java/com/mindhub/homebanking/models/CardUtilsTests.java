@@ -1,14 +1,11 @@
 package com.mindhub.homebanking.models;
 
 import com.mindhub.homebanking.utils.CardUtils;
-import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class CardUtilsTests {

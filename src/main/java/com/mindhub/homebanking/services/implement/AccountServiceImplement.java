@@ -41,4 +41,9 @@ private AccountRepository accountRepository;
         return accountRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public boolean existsByActive(boolean active) {
+        return accountRepository.existsByActive(active);
+    }
+
 }

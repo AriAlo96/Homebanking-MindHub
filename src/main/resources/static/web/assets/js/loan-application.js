@@ -6,7 +6,8 @@ const app = Vue.createApp({
             amount: 0,
             payments:0,
             destinationAccount: "",
-            accounts: {}
+            accounts: {},
+            accountsActives: {},
         };
     },
 
@@ -21,7 +22,7 @@ const app = Vue.createApp({
         axios.get("/api/clients/current/accounts")
             .then(response => {
                 this.accounts = response.data;
-                console.log(this.accounts);
+                this.accountsActives = this.filterAccountsActives()
             })
             .catch(error => {
                 console.log(error);
@@ -69,6 +70,9 @@ const app = Vue.createApp({
         },
     })
     },
+    filterAccountsActives(){
+        return this.accounts.filter(accounts => accounts.active)
+       },
     logout() {
         axios
             .post(`/api/logout`)

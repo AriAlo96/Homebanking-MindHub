@@ -67,6 +67,10 @@ public class AccountController {
             return new ResponseEntity<>("The client was not found",
                     HttpStatus.NOT_FOUND);
         }
+        if (!accountService.existsByActive(true)){
+            return new ResponseEntity<>("This account is already active",
+                    HttpStatus.FORBIDDEN);
+        }
         String accountNumber = checkAccountNumber();
         if (client.getAccounts().size() > 3) {
             return new ResponseEntity<>("You have reached the limit of created accounts",
@@ -92,7 +96,7 @@ public class AccountController {
             return new ResponseEntity<>("The account doesn't exist",
                     HttpStatus.FORBIDDEN);
         }
-        if (account.getBalance() != 0) {
+        if (account.getBalance() <= 0) {
             return new ResponseEntity<>("You cannot delete an account with a balance greater than zero",
                     HttpStatus.FORBIDDEN);
         }

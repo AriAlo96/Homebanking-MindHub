@@ -99,7 +99,7 @@ public class LoanController {
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT,
                 loanApplicationDTO.getAmount(), loan.getName() + " Loan approved",
-                LocalDateTime.now() , currentBalanceAccountCredit);
+                LocalDateTime.now() , currentBalanceAccountCredit,true);
 
         transactionService.saveTransaction(transactionCredit);
         account.addTransaction(transactionCredit);

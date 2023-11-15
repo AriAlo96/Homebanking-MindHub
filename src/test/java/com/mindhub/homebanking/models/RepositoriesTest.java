@@ -10,9 +10,9 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class RepositoriesTest {
     @Autowired
     ClientRepository clientRepository;
@@ -47,7 +47,7 @@ public class RepositoriesTest {
     @Test
     public void existCardByTypeAndColorAndClient(){
         Client client = clientRepository.findByEmail("melba@mindhub.com");
-        Boolean card = cardRepository.existsByTypeAndColorAndClient(CardType.CREDIT, CardColor.TITANIUM , client);
+        Boolean card = cardRepository.existsByTypeAndColorAndClientAndActive(CardType.CREDIT, CardColor.TITANIUM , client, true);
         assertThat(card,is(true));
     }
     @Test
