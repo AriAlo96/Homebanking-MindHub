@@ -5,8 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 public interface CardService {
-   boolean existsCardByTypeAndColorAndClient (CardType type, CardColor color, Client client);
+   boolean existsCardByTypeAndColorAndClientAndActive (CardType type, CardColor color, Client client , boolean active);
    void saveCard (Card card);
    boolean existsCardByNumber (String number);
+   Card findById (Long id);
+   List<Card> findAll();
 }

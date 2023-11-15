@@ -5,15 +5,13 @@ import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -25,47 +23,71 @@ public class CardController {
     @Autowired
     private ClientService clientService;
 
-
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam CardType type, @RequestParam CardColor color) {
-        Client client = (clientService.findClientByEmail(authentication.getName()));
+    public ResponseEntity<Object> createCard(Authentication authentication,
+                                             @RequestParam CardType type,
+                                             @RequestParam CardColor color) {
+        Client client = clientService.findClientByEmail(authentication.getName());
         if (client == null) {
             throw new UsernameNotFoundException("Unknow client " + authentication.getName());
         }
-        if (cardService.existsCardByTypeAndColorAndClient(type, color, client)) {
-            return new ResponseEntity<>("You already have the same card", HttpStatus.FORBIDDEN);
+        if (cardService.existsCardByTypeAndColorAndClientAndActive(type,
+                color,
+                client, true)) {
+            return new ResponseEntity<>("You already have the same card",
+                    HttpStatus.FORBIDDEN);
         }
-        Card card = new Card((client.getFirstName().toUpperCase() + " " + client.getLastName().toUpperCase()), type,
-                color, generateNumber(1, 10000) ,  generateCvv(1, 1000) , LocalDate.now().plusYears(5), LocalDate.now());
-        cardService.saveCard(card);
-        client.addCard(card);
+        LocalDate fromDate = LocalDate.now();
+        LocalDate thruDate = fromDate.plusYears(5);
+        String cardNumber = checkCardNumber();
+        int cvv = CardUtils.generateCvv();
+        Boolean active = true;
+        Boolean expired = (thruDate.isBefore(LocalDate.now()));
+        Card newCard = new Card((client.getFirstName().toUpperCase() + " " + client.getLastName().toUpperCase()),
+                type,
+                color,
+                cardNumber,
+                cvv,
+                thruDate,
+                fromDate, active);
+        cardService.saveCard(newCard);
+        client.addCard(newCard);
         clientService.saveClient(client);
-        return new ResponseEntity<>("Card created successfully", HttpStatus.CREATED);
-    }
-    public String generateNumber(int min, int max) {
-        long number1;
-        long number2;
-        long number3;
-        long number4;
-        String numberCompleted;
-        do{
-            number1 = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber1 = String.format("%04d", number1);
-            number2 = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber2 = String.format("%04d", number2);
-            number3 = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber3 = String.format("%04d", number3);
-            number4 = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber4 = String.format("%04d", number4);
-            numberCompleted = formattedNumber1 + " " + formattedNumber2 + " " + formattedNumber3 + " " + formattedNumber4;
-        } while (cardService.existsCardByNumber(numberCompleted));
-        return  numberCompleted;
-    }
-    public String generateCvv(int min, int max) {
-        int number = (int) ((Math.random() * (max - min)) + min);
-        String formattedNumber = String.format("%03d", number);
-        return  formattedNumber;
+        return new ResponseEntity<>("Card created successfully",
+                HttpStatus.CREATED);
     }
 
+    @PutMapping("/clients/current/cards")
+    public ResponseEntity<Object> deleteCard(Authentication authentication, @RequestParam Long id) {
+        Client client = clientService.findClientByEmail(authentication.getName());
+        Card card = cardService.findById(id);
+        if (client == null) {
+            return new ResponseEntity<>("Client not found",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (card == null) {
+            return new ResponseEntity<>("The card doesn't exist",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (!card.getActive()) {
+            return new ResponseEntity<>("The card is inactive",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (!card.getClient().equals(client)) {
+            return new ResponseEntity<>("The card doesn't belong to the authenticated client",
+                    HttpStatus.FORBIDDEN);
+        }
+        card.setActive(false);
+        cardService.saveCard(card);
+        return new ResponseEntity<>("Card deleted successfully", HttpStatus.CREATED);
+    }
+
+    public String checkCardNumber(){
+        String generatedNumber;
+        do{
+           generatedNumber = CardUtils.generateNumber();
+        }while(cardService.existsCardByNumber(generatedNumber));
+        return generatedNumber;
+    }
 }
 

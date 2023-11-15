@@ -26,48 +26,28 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button></a>
                     </div>
-                    <a class="navbar-brand" href="../../../index.html"><img src="../images/Logo.png" alt="Logo" height="80"
-                            class="d-inline-block align-text-top">
+                    <a class="navbar-brand" href="../../../index.html"><img src="../images/Logo.png" alt="Logo"
+                            height="80" class="d-inline-block align-text-top">
                     </a>
-                    <a href="" style="padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                        aria-controls="offcanvasRight"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                            <path fill-rule="evenodd"
-                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg></a>
+                    <div style="display: flex; flex-direction: column; align-items: end;">
+                        <a href=""><svg @click.prevent="logout()" style="color: rgb(7, 25, 82); cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg></a>
+                        <a class="nav-link" @click.prevent="logout()" style="font-size: 0.9rem !important;">Log Out</a>
+                    </div>
                 </div>
             </nav>
-
-            <div class="offcanvas offcanvas-end div-off-profile-me" data-bs-scroll="true" tabindex="-1"
-                id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-body d-flex flex-column gap-2">
-                    <div>
-                        <a class="nav-link d-flex justify-content-end" href="./cards.html"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="aliceblue"
-                                class="bi bi-x-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                            </svg></a>
-                    </div>
-                    <div>
-                        <a class="nav-link" style="color: aliceblue !important;" @click.prevent="logout()">LOG OUT</a>
-                    </div>
-                </div>
-            </div>
 
             <div class="offcanvas offcanvas-start div-off-me" data-bs-scroll="true" tabindex="-1" id="offcanvasRight1"
                 aria-labelledby="offcanvasRightLabel1">
                 <div class="offcanvas-body d-flex flex-column gap-2">
-                    <div>
-                        <a class="nav-link d-flex justify-content-end" href="./cards.html"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-x-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                            </svg></a>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="offcanvas"></button>
                     </div>
                     <div>
                         <a class="nav-link" aria-current="page" href="../../accounts.html">Accounts</a>
@@ -112,14 +92,16 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <h2 style="font-size: 3rem; text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Your cards
+            <h2 style="font-size: 3rem; text-align: center; padding-top: 0.5rem; color: rgb(53, 162, 159);">Your cards
             </h2>
-            <div class="d-flex justify-content-around flex-wrap" style="padding: 1rem;">  
-                <div class="d-flex flex-column">
+            <div>
+            <div class="d-flex justify-content-around flex-column gap-5" style="padding: 1rem; margin-bottom: 3rem;">
+                <div class="d-flex flex-column flex-wrap">
                     <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Debit Cards</h3>
-                    <div class="container-ext d-flex gap-2 flex-wrap">
+                    <div class="container-ext d-flex gap-5 flex-wrap">
                         <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
-                            <div class="card-inner-ext">
+                            <h6 style="color: black;" v-if="card.thruDate < currentDate.toLocaleDateString()">This card is expired</h6>
+                            <div class="card-inner-ext" style="margin: 0.5rem;">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
                                 'card-silver-front': card.color === 'SILVER',
@@ -170,18 +152,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-end">
+                                <a class="button-card" @click="deleteCard(card.id)" v-model="cardId"
+                                    style="font-size: 0.8rem !important; padding: 0.3rem !important;">Delete Card</a>
+                            </div>
                         </div>
                         <div v-else style="display: flex; flex-direction: column; align-items: center;">
                             <h6>You don't have a debit card</h6>
-                            <a class="button-card" style="text-align: center; width: 12rem;">Request debit card</a>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-column">
+            
+                <div class="d-flex flex-column flex-wrap">
                     <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Credit Cards</h3>
                     <div class="container-ext d-flex gap-2 flex-wrap">
                         <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
-                            <div class="card-inner-ext">
+                            <h6 style="color: black;" v-if="card.thruDate < currentDate.toLocaleDateString()">This card is expired</h6>
+                            <div class="card-inner-ext" style="margin: 0.5rem;">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
                                 'card-silver-front': card.color === 'SILVER',
@@ -232,17 +219,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-end">
+                                <a class="button-card" @click="deleteCard(card.id)" v-model="cardId"
+                                    style="font-size: 0.8rem !important; padding: 0.3rem !important;">Delete Card</a>
+                            </div>
                         </div>
                         <div v-else style="display: flex; flex-direction: column; align-items: center;">
                             <h6>You don't have a credit card</h6>
-                            <a class="button-card" style="text-align: center; width: 12rem;">Request credit card</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center" v-if="cards.length < 6">
+            <div class="d-flex justify-content-center" >
                 <a href="./create-card.html" type="button" class="button-card"
-                    style="background-color: rgb(53, 162, 159); margin-bottom: 3rem; font-size: 1.3rem !important;">Create
+                    style="background-color: rgb(53, 162, 159); margin: 5rem; font-size: 1.3rem !important;">Create
                     Card</a>
             </div>
         </main>
@@ -273,7 +263,7 @@
                         class="bi bi-c-circle" viewBox="0 0 16 16">
                         <path
                             d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512Z" />
-                    </svg> All rights reserved</p>
+                    </svg> Savings Bank (Mindhub) - Alochis Ariana</p>
             </nav>
         </footer>
 

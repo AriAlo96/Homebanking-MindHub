@@ -10,9 +10,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository<Card, Long> {
     boolean existsByNumber (String number);
-
-    boolean findByCvv (String cvv);
-
-    boolean existsByTypeAndColorAndClient (CardType type , CardColor color, Client client);
+    boolean existsByTypeAndColorAndClientAndActive (CardType type , CardColor color, Client client, boolean active);
 
 }

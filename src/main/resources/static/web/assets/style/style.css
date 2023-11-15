@@ -356,12 +356,7 @@ table {
         flex-direction: column;
         gap: 2rem;
     }
-    .card-title-loan{
-        font-size: 1rem;
-    }
-    .card-text-loan{
-        font-size: 0.9rem;
-    }
+    
 }
 
 @media screen and (min-width: 600px) {

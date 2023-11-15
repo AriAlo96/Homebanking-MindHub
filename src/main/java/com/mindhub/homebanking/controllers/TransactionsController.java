@@ -39,6 +39,7 @@ public class TransactionsController {
         Client client = clientService.findClientByEmail(authentication.getName());
         Account accountDebit = accountService.findAccountByNumber(originNumber);
         Account accountCredit = accountService.findAccountByNumber(destinationNumber);
+
         if (client == null) {
             return new ResponseEntity<>("Unknow client " + authentication.getName(),
                     HttpStatus.UNAUTHORIZED);
@@ -67,16 +68,19 @@ public class TransactionsController {
         if (accountDebit.getNumber().equals(accountCredit.getNumber())) {
             return new ResponseEntity<>("the destination account cannot be the same as the origin account",
                     HttpStatus.FORBIDDEN);
-        } else {
-            Transaction transactionDebit = new Transaction(TransactionType.DEBIT,
-                    (-amount),
-                    accountDebit.getNumber() + description,
-                    LocalDateTime.now());
+        }
 
-            Transaction transactionCredit = new Transaction(TransactionType.CREDIT,
-                    amount,
-                    accountCredit.getNumber() + description,
-                    LocalDateTime.now());
+        double currentBalanceTransactionDebit = accountDebit.getBalance() - amount;
+        boolean active = true;
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT,
+                (-amount), accountDebit.getNumber() + description,
+                    LocalDateTime.now() , currentBalanceTransactionDebit , active);
+
+        double currentBalanceTransactionCredit = accountCredit.getBalance() + amount;
+
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT,
+                amount, accountCredit.getNumber() + description,
+                    LocalDateTime.now(), currentBalanceTransactionCredit, active);
 
             transactionService.saveTransaction(transactionDebit);
             accountDebit.addTransaction(transactionDebit);
@@ -89,6 +93,6 @@ public class TransactionsController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-}
+
 
 

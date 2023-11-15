@@ -16,6 +16,7 @@ const app = Vue.createApp({
                 this.account = response.data;
                 this.transactions = this.account.transactions
                 this.transactions.sort((a, b) => b.id - a.id);
+                console.log(this.transactions);
             })
             .catch(error => {
                 this.messageError = error.response.data;

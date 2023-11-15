@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +29,19 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO> getAllClients(){
         List<ClientDTO> clients = clientService.findAllClients().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
         return clients;
     }
 
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
         ClientDTO client = new ClientDTO(clientService.findClientById(id));
         return client;
     }
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientService.findClientByEmail(authentication.getName()));
     }
@@ -70,29 +71,21 @@ public class ClientController {
         if (clientService.existsClientByEmail(email)) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
-
+        String accountNumber = checkAccountNumber();
+        boolean active = true;
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        Account account = new Account(generateNumber(1, 100000000), LocalDate.now(), 0);
+        Account account = new Account(accountNumber, LocalDate.now(), 0, active);
         accountService.saveAccount(account);
         newClient.addAccount(account);
         clientService.saveClient(newClient);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    public String generateNumber(int min, int max) {
-        List<AccountDTO> accounts = accountService.findAllAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
-        Set<String> setAccounts = accounts.stream().map(accountDTO ->
-                accountDTO.getNumber()
-        ).collect(Collectors.toSet());
-        String aux = "VIN";
-        long number;
-        String numbercompleted;
+    public String checkAccountNumber(){
+        String generatedNumber;
         do{
-            number = (int) ((Math.random() * (max - min)) + min);
-            String formattedNumber = String.format("%03d", number);
-            numbercompleted = aux + formattedNumber;
-        } while (setAccounts.contains(numbercompleted));
-        return  numbercompleted;
+            generatedNumber = AccountUtils.generateNumber();
+        }while(accountService.existsAccountByNumber(generatedNumber));
+        return generatedNumber;
     }
-
 }

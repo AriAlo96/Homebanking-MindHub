@@ -9,16 +9,18 @@ import com.mindhub.homebanking.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CardServiceImplement implements CardService {
     @Autowired
     CardRepository cardRepository;
 
     @Override
-    public boolean existsCardByTypeAndColorAndClient(CardType type,
+    public boolean existsCardByTypeAndColorAndClientAndActive(CardType type,
                                                      CardColor color,
-                                                     Client client) {
-        return cardRepository.existsByTypeAndColorAndClient(type,color,client);
+                                                     Client client , boolean active) {
+        return cardRepository.existsByTypeAndColorAndClientAndActive(type,color,client,active);
     }
 
     @Override
@@ -30,4 +32,16 @@ public class CardServiceImplement implements CardService {
     public boolean existsCardByNumber(String number) {
         return cardRepository.existsByNumber(number);
     }
+
+    @Override
+    public Card findById(Long id) {
+        return cardRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Card> findAll() {
+        return cardRepository.findAll();
+    }
+
+
 }

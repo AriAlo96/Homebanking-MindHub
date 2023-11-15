@@ -6,7 +6,8 @@ const app = Vue.createApp({
             creditCards: [],
             debitCards: [],
             cardType: "",
-            cardColor: ""
+            cardColor: "",
+            currentDate: new Date()
         };
     },
 
@@ -22,6 +23,8 @@ const app = Vue.createApp({
             .catch(error => {
                 console.log(error);
             });
+           
+
     },
 
     methods: {
@@ -37,10 +40,10 @@ const app = Vue.createApp({
                 });
         },
 
-        createNewCard() {
+        deleteCard(id){
             Swal.fire({
-                title: 'Do you want to create a new card?',
-                text: 'Remember that you can only have 3 cards',
+                title: 'Are you sure to delete this card?',
+                text: 'This action cannot be reversed',
                 showCancelButton: true,
                 cancelButtonText: 'Cancell',
                 confirmButtonText: 'Yes',
@@ -54,11 +57,11 @@ const app = Vue.createApp({
                   popup: '',
                   backdrop: ''
             }, preConfirm: () => {
-            axios.post(`/api/clients/current/cards`, `type=${this.cardType}&color=${this.cardColor}`)
+            axios.put(`/api/clients/current/cards`, `id=${id}`)
                 .then(() => {
                     Swal.fire({
                         icon: 'success',
-                        text: 'Successfully created account',
+                        text: 'Successfully delet card',
                         showConfirmButton: false,
                         timer: 2000,
                     })
@@ -73,7 +76,7 @@ const app = Vue.createApp({
             });
             },
         })
-    },
+        },
 
         formatNumber(number) {
             return number.toLocaleString("De-DE", {
@@ -82,10 +85,10 @@ const app = Vue.createApp({
             });
         },
         createCreditCards(){
-            return this.cards.filter(card => card.type == "CREDIT")
+            return this.cards.filter(card => card.type == "CREDIT" && card.active)
         },
         createDebitCards(){
-            return this.cards.filter(card => card.type == "DEBIT")
+            return this.cards.filter(card => card.type == "DEBIT" && card.active)
         }
     }
 },

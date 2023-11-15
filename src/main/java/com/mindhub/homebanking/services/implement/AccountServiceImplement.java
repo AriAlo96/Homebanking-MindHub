@@ -36,4 +36,9 @@ private AccountRepository accountRepository;
         return accountRepository.findByNumber(number);
     }
 
+    @Override
+    public Account findById(Long id) {
+        return accountRepository.findById(id).orElse(null);
+    }
+
 }

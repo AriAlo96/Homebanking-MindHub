@@ -2,7 +2,6 @@ package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -11,26 +10,26 @@ import java.util.Set;
 @Entity
 public class Account {
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO, generator = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private String number;
     private LocalDate creationDate;
     private double balance;
-
+    private boolean active;
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
-
     @OneToMany(mappedBy = "account", fetch=FetchType.EAGER)
     private Set<Transaction> transactions = new HashSet<>();
 
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, double balance) {
+    public Account(String number, LocalDate creationDate, double balance , boolean active) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.active = active;
     }
 
     public long getId() {
@@ -76,7 +75,12 @@ public class Account {
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
-
+    public boolean getActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
     public void addTransaction (Transaction transaction){
         transaction.setAccount(this);
         transactions.add(transaction);
