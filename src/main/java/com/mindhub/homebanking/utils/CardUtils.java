@@ -6,16 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 public final class CardUtils {
     private CardUtils() {
     }
-    public static String generateNumber() {
-            int number1 = (int) ((Math.random() * (9999 - 1000)) + 1000);
-            int number2 = (int) ((Math.random() * (9999 - 1000)) + 1000);
-            int number3 = (int) ((Math.random() * (9999 - 1000)) + 1000);
-            int number4 = (int) ((Math.random() * (9999 - 1000)) + 1000);
-            String generatedNumber = number1 + " " + number2 + " " + number3 + " " + number4;
-        return  generatedNumber;
+    public static int generateRandomNumber (int min,int max){
+        return (int) ((Math.random() * (max - min)) + min);
     }
-    public static int generateCvv() {
-        int number = (int) ((Math.random() * (999 - 100)) + 100);
+    public static String generateNumber() {
+            String number = "";
+        for (int i = 0; i < 3 ; i++) {
+            number += generateRandomNumber(1000,9999) + " ";
+        } number += generateRandomNumber(1000,9999);
         return  number;
     }
+    public static int generateCvv() {
+        int number = generateRandomNumber(100,999);
+        return  number;
+    }
+
 }

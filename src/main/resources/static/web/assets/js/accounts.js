@@ -3,8 +3,8 @@ const app = Vue.createApp({
         return {
             client: {},
             accounts: {},
-            accountsActives: {},
             loans: {},
+            accountType: null
         };
     },
 
@@ -13,8 +13,7 @@ const app = Vue.createApp({
             .then(response => {
                 this.client = response.data;
                 this.accounts = this.client.accounts;
-                this.accountsActives = this.filterAccountsActives()
-                console.log(this.accountsActives);
+                console.log(this.accounts);
                 this.loans = this.client.loans
             })
             .catch(error => {
@@ -51,7 +50,7 @@ const app = Vue.createApp({
                   popup: '',
                   backdrop: ''
             }, preConfirm: () => {
-            axios.post(`/api/clients/current/accounts`)
+            axios.post(`/api/clients/current/accounts`,`accountType=${this.accountType}`)
                 .then(() => {
                     Swal.fire({
                         title: "Successfully created account",
@@ -95,7 +94,7 @@ const app = Vue.createApp({
         axios.put(`/api/clients/current/accounts`, `id=${id}`)
             .then(() => {
                 Swal.fire({
-                    title: "Successfully created account",
+                    title: "Successfully delete account",
                     icon: "success",
                     confirmButtonColor: "#3085d6",
                   }).then((result) => {
@@ -114,21 +113,12 @@ const app = Vue.createApp({
         },
     })
 },
-    filterAccountsActives(){
-     return this.accounts.filter(accounts => accounts.active)
-    },
-
-
-        formatNumber(number) {
+    formatNumber(number) {
             return number.toLocaleString("De-DE", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
             });
         },
-
-        dateFormat(date) {
-            return moment(date).format('lll');
-        }
     }
 },
 );

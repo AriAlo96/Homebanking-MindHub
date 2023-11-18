@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -49,10 +50,7 @@ public class LoanController {
         Client client = clientService.findClientByEmail(authentication.getName());
         Loan loan = loanService.findLoanById(loanApplicationDTO.getLoanId());
         Account account = accountService.findAccountByNumber(loanApplicationDTO.getDestinationAccount());
-        if (client == null) {
-            return new ResponseEntity<>("Unknow client " + authentication.getName(),
-                    HttpStatus.UNAUTHORIZED);
-        }
+
         if (loanApplicationDTO.getLoanId() == 0) {
             return new ResponseEntity<>("The type of loan is required", HttpStatus.FORBIDDEN);
         }
@@ -88,7 +86,8 @@ public class LoanController {
             return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * 1.20,
+        double interest = loan.getInterestPercentage();
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() + (loanApplicationDTO.getAmount() * interest),
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);
@@ -103,8 +102,37 @@ public class LoanController {
 
         transactionService.saveTransaction(transactionCredit);
         account.addTransaction(transactionCredit);
-        account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
+        account.setBalance(currentBalanceAccountCredit);
         accountService.saveAccount(account);
         return new ResponseEntity<>(HttpStatus.CREATED);
         }
+
+    @PostMapping("/admin/loans")
+    public ResponseEntity<Object> createNewLoanType (Authentication authentication, @RequestParam String name , @RequestParam Double maxAmount , @RequestParam List<Integer> payments , @RequestParam Double interestPercentage) {
+        Client client = clientService.findClientByEmail(authentication.getName());
+        if(name.isEmpty() || name.isBlank()){
+            return new ResponseEntity<>("The name is required", HttpStatus.FORBIDDEN);
+        }
+        if(maxAmount == null){
+            return new ResponseEntity<>("The maximum amount is required", HttpStatus.FORBIDDEN);
+        }
+        if(payments.isEmpty()){
+            return new ResponseEntity<>("Payments are required", HttpStatus.FORBIDDEN);
+        }
+        if(interestPercentage == null){
+            return new ResponseEntity<>("The interest percentage is required", HttpStatus.FORBIDDEN);
+        }
+
+        if(loanService.existsByName(name)){
+            return new ResponseEntity<>("This loan already exists", HttpStatus.FORBIDDEN);
+        }
+        if (maxAmount <=0){
+            return new ResponseEntity<>("The maximum amount cannot be less than or equal to zero", HttpStatus.FORBIDDEN);
+        }
+        Loan newLoan = new Loan(name,maxAmount,payments,interestPercentage);
+
+        loanService.saveLoan(newLoan);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

@@ -40,16 +40,16 @@ public class HomebankingApplication {
 
 			Account account1 = new Account("VIN001",
 					LocalDate.now(),
-					5000,true);
+					5000,true,AccountType.SAVING);
 			Account account2 = new Account("VIN002",
 					LocalDate.now().plusDays(1),
-					7500,true);
+					7500,true,AccountType.CURRENT);
 			Account account3 = new Account("VIN003",
 					LocalDate.now(),
-					5800,true);
+					5800,true,AccountType.SAVING);
 			Account account4 = new Account("VIN004",
 					LocalDate.now().plusDays(1),
-					9400,true);
+					9400,true,AccountType.CURRENT);
 			client1.addAccount(account1);
 			client1.addAccount(account2);
 			client2.addAccount(account3);
@@ -141,14 +141,14 @@ public class HomebankingApplication {
 			List<Integer> paymentsAutomotive;
 			paymentsAutomotive = List.of(6, 12, 24, 36);
 
-			Loan loan1 = new Loan("Mortgage", 500000, paymentsMortgage);
-			Loan loan2 = new Loan("Personal", 100000, paymentsPersonal);
-			Loan loan3 = new Loan("Automotive", 300000, paymentsAutomotive);
+			Loan loan1 = new Loan("Mortgage", 500000.0, paymentsMortgage , 0.30);
+			Loan loan2 = new Loan("Personal", 100000.0, paymentsPersonal, 0.25);
+			Loan loan3 = new Loan("Automotive", 300000.0, paymentsAutomotive, 0.40);
 
-			ClientLoan clientLoan1 = new ClientLoan(400000, 60);
-			ClientLoan clientLoan2 = new ClientLoan(50000, 12);
-			ClientLoan clientLoan3 = new ClientLoan(100000, 12);
-			ClientLoan clientLoan4 = new ClientLoan(200000, 36);
+			ClientLoan clientLoan1 = new ClientLoan(400000 + (400000 * loan1.getInterestPercentage()), 60);
+			ClientLoan clientLoan2 = new ClientLoan(50000 + (50000 * loan2.getInterestPercentage()), 12);
+			ClientLoan clientLoan3 = new ClientLoan(100000 + (100000 * loan2.getInterestPercentage()), 12);
+			ClientLoan clientLoan4 = new ClientLoan(200000 + (200000 * loan3.getInterestPercentage()), 36);
 
 			client1.addClientLoan(clientLoan1);
 			client1.addClientLoan(clientLoan2);
@@ -170,9 +170,9 @@ public class HomebankingApplication {
 			clientLoanRepository.save(clientLoan3);
 			clientLoanRepository.save(clientLoan4);
 
-			Card card1 = new Card("MELBA MOREL" , CardType.DEBIT , CardColor.GOLD , "1010 2584 6958 9387" , 963 , LocalDate.now().plusYears(5) , LocalDate.now(),true);
-			Card card2 = new Card("MELBA MOREL" , CardType.CREDIT , CardColor.TITANIUM , "1414 5967 1428 3617" , 587 , LocalDate.now().plusYears(5) , LocalDate.now(),true);
-			Card card3 = new Card("JUAN PEREZ" , CardType.CREDIT , CardColor.SILVER , "3636 5387 4265 8569" , 127 , LocalDate.now().plusYears(5) , LocalDate.now(),true);
+			Card card1 = new Card(client1.getFirstName(). toUpperCase() + " " + client1.getLastName().toUpperCase() , CardType.DEBIT , CardColor.GOLD , "1010 2584 6958 9387" , 963 , LocalDate.now().plusYears(5) , LocalDate.now(), true);
+			Card card2 = new Card(client1.getFirstName(). toUpperCase() + " " + client1.getLastName().toUpperCase() , CardType.CREDIT , CardColor.TITANIUM , "1414 5967 1428 3617" , 587 , LocalDate.now().plusYears(5) , LocalDate.now(), true);
+			Card card3 = new Card(client2.getFirstName(). toUpperCase() + " " + client2.getLastName().toUpperCase() , CardType.CREDIT , CardColor.SILVER , "3636 5387 4265 8569" , 127 , LocalDate.now().plusYears(5) , LocalDate.now(), true);
 			client1.addCard(card1);
 			client1.addCard(card2);
 			client2.addCard(card3);

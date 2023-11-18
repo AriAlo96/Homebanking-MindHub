@@ -356,7 +356,9 @@ table {
         flex-direction: column;
         gap: 2rem;
     }
-    
+    .img-create-card{
+        height: 16rem !important;
+    }
 }
 
 @media screen and (min-width: 600px) {

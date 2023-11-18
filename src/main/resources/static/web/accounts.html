@@ -30,11 +30,15 @@
                             height="80" class="d-inline-block align-text-top">
                     </a>
                     <div style="display: flex; flex-direction: column; align-items: end;">
-                        <a href=""><svg @click.prevent="logout()" style="color: rgb(7, 25, 82); cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                          </svg></a>   
-                          <a class="nav-link" @click.prevent="logout()" style="font-size: 0.9rem !important;">Log Out</a> 
+                        <a href=""><svg @click.prevent="logout()" style="color: rgb(7, 25, 82); cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg></a>
+                        <a class="nav-link" @click.prevent="logout()" style="font-size: 0.9rem !important;">Log Out</a>
                     </div>
                 </div>
             </nav>
@@ -93,7 +97,7 @@
                 accounts
             </h2>
             <div class="d-flex justify-content-around" style="flex-wrap: wrap;">
-                <div v-if="accountsActives.length !=0" class="mb-3" v-for="account of accountsActives" style="max-width: 540px;">
+                <div v-if="accounts.length !=0" class="mb-3" v-for="account of accounts" style="max-width: 540px;">
                     <div class="d-flex g-0 container-img-body">
                         <div class="col-sm-4 col-md-4">
                             <img src="./assets/images/Image-Accounts.png" class="img-fluid rounded-start image-card-me"
@@ -101,7 +105,8 @@
                         </div>
                         <div class="col-md-8 card-body d-flex"
                             style="flex-direction: column; justify-content: space-around; padding: 1rem;">
-                            <h4 class="card-title title-card"> Account: {{account.number}} </h4>
+                            <small style="text-align: end;">{{account.accountType}} ACCOUNT</small>
+                            <h4 class="card-title title-card"> Account: {{account.number}}</h4>
                             <h3 class="card-title"> Balance: US$ {{ formatNumber(account.balance)}} </h3>
                             <p class="card-text"><small class="text-body-secondary"> Creation Date:
                                     {{account.creationDate}}</small>
@@ -114,16 +119,43 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start" style="margin-top: 0.5rem; cursor: pointer;">
-                        <a class="button-card" @click="deleteAccount(id)" v-model="cardId"
-                            style="font-size: 0.8rem !important; font-weight: 500 !important; padding: 0.3rem !important;">Delete Account</a>
+                        <a class="button-card" @click="deleteAccount(account.id)"
+                            style="font-size: 0.8rem !important; font-weight: 500 !important; padding: 0.3rem !important;">Delete
+                            Account</a>
                     </div>
                 </div>
                 <h3 v-else>You don't have accounts yet</h3>
             </div>
             <div v-if="accounts.length<3" class="d-flex justify-content-center" style="margin: 2rem;">
-                <a class="button-card" style="background-color: rgb(7, 25, 82); padding: 1rem; cursor: pointer; color:  rgba(139, 246, 228, 0.879)!important;"
-                    @click="createNewAccount()">Create new account</a>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="button-card"
+                    style="background-color: rgb(7, 25, 82); padding: 1rem; cursor: pointer; color:  rgba(139, 246, 228, 0.879)!important;">Create new account</a>
+            </div> 
+                  
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">ACCOUNT TYPE</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <select v-model="accountType" class="form-select" aria-label="Default select example">
+                                    <option value="null" selected>Select account type</option>
+                                    <option v-for="account of accounts" :value="account.accountType">{{ account.accountType }}</option>
+                                </select>
+                            </div>   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancell</button>
+                            <button @click="createNewAccount()" type="button" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
 
             <h2 style="text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Your loans
             </h2>
@@ -133,9 +165,10 @@
                     <div class="card-body"
                         style="padding-right: 3rem; padding-left: 3rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
                         <h4 class="card-title card-title-loan">{{loan.loanName}} loan</h4>
-                        <h5 class="card-text card-text-loan">Amount $ {{formatNumber(loan.loanAmount)}}
+                        <h5 class="card-text card-text-loan">Amount US$ {{formatNumber(loan.loanAmount)}}
                         </h5>
-                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments</small></p>
+                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments
+                                of US${{formatNumber(loan.loanAmount / loan.loanPayments)}}</small></p>
                     </div>
                 </div>
                 <h3 v-else>You have not applied for loans</h3>

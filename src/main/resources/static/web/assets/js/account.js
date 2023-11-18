@@ -10,8 +10,7 @@ const app = Vue.createApp({
 
     created() {
         let urlParams = new URLSearchParams(location.search);
-        let id = urlParams.get('id')
-        
+        let id = urlParams.get('id')     
         axios.get(`/api/accounts/${id}`)
             .then(response => {
                 this.account = response.data;

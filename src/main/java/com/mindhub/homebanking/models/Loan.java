@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import jdk.jfr.Percentage;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,9 +18,10 @@ public class Loan {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private String name;
-    private double maxAmount;
-@ElementCollection
+    private Double maxAmount;
+    @ElementCollection
     private List<Integer> payments;
+    private Double interestPercentage;
 
     @OneToMany(mappedBy = "loan", fetch=FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
@@ -27,10 +29,11 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(String name, double maxAmount, List<Integer> payments) {
+    public Loan(String name, Double maxAmount, List<Integer> payments, Double interestPercentage) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.interestPercentage = interestPercentage;
     }
 
     public long getId() {
@@ -45,11 +48,11 @@ public class Loan {
         this.name = name;
     }
 
-    public double getMaxAmount() {
+    public Double getMaxAmount() {
         return maxAmount;
     }
 
-    public void setMaxAmount(double maxAmount) {
+    public void setMaxAmount(Double maxAmount) {
         this.maxAmount = maxAmount;
     }
 
@@ -59,6 +62,14 @@ public class Loan {
 
     public void setPayments(List<Integer> payments) {
         this.payments = payments;
+    }
+
+    public Double getInterestPercentage() {
+        return interestPercentage;
+    }
+
+    public void setInterestPercentage(Double interestPercentage) {
+        this.interestPercentage = interestPercentage;
     }
 
     public Set<ClientLoan> getClientLoans() {
@@ -83,5 +94,6 @@ public class Loan {
                 ", payments=" + payments +
                 '}';
     }
+
 }
 

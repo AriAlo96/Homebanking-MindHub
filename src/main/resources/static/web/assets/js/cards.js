@@ -16,9 +16,9 @@ const app = Vue.createApp({
             .then(response => {
                 this.client = response.data;
                 this.cards = this.client.cards
-                console.log(this.cards);
                 this.creditCards = this.createCreditCards()
                 this.debitCards = this.createDebitCards()
+            
             })
             .catch(error => {
                 console.log(error);
@@ -85,10 +85,10 @@ const app = Vue.createApp({
             });
         },
         createCreditCards(){
-            return this.cards.filter(card => card.type == "CREDIT" && card.active)
+            return this.cards.filter(card => card.type == "CREDIT")
         },
         createDebitCards(){
-            return this.cards.filter(card => card.type == "DEBIT" && card.active)
+            return this.cards.filter(card => card.type == "DEBIT")
         }
     }
 },

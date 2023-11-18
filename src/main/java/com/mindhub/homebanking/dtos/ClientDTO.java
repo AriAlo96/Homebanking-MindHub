@@ -26,6 +26,7 @@ public class ClientDTO {
         this.accounts = client
                 .getAccounts()
                 .stream()
+                .filter(account -> account.getActive())
                 .map(account -> new AccountDTO(account))
                 .collect(Collectors.toSet());
         this.loans = client
@@ -36,6 +37,7 @@ public class ClientDTO {
         this.cards = client
                 .getCards()
                 .stream()
+                .filter(card -> card.getActive())
                 .map(card -> new CardDTO(card))
                 .collect(Collectors.toSet());
     }

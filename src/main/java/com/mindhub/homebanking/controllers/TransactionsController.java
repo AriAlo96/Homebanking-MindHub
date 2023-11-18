@@ -32,7 +32,7 @@ public class TransactionsController {
     @Transactional
     @PostMapping("/clients/current/transfers")
     public ResponseEntity<Object> createTransaction(Authentication authentication,
-                                                    @RequestParam double amount,
+                                                    @RequestParam Double amount,
                                                     @RequestParam String description,
                                                     @RequestParam String originNumber,
                                                     @RequestParam String destinationNumber) {
@@ -66,7 +66,23 @@ public class TransactionsController {
                     HttpStatus.FORBIDDEN);
         }
         if (accountDebit.getNumber().equals(accountCredit.getNumber())) {
-            return new ResponseEntity<>("the destination account cannot be the same as the origin account",
+            return new ResponseEntity<>("The destination account cannot be the same as the origin account",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (description == null) {
+            return new ResponseEntity<>("Description is required",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (amount == null) {
+            return new ResponseEntity<>("Amount is required",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (originNumber.isBlank() || originNumber.isEmpty()) {
+            return new ResponseEntity<>("Origin account is required",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (destinationNumber.isBlank() || destinationNumber.isEmpty()) {
+            return new ResponseEntity<>("Destination account is required",
                     HttpStatus.FORBIDDEN);
         }
 

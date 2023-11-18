@@ -1,10 +1,8 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
+import com.mindhub.homebanking.dtos.ClientDTO;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.utils.AccountUtils;
@@ -44,24 +42,25 @@ public class AccountController {
             return new ResponseEntity<>("the account does not belong to the authenticated client",
                     HttpStatus.FORBIDDEN);
         }
-        if (account != null) {
-            return new ResponseEntity<>(new AccountDTO(account),
-                    HttpStatus.OK);
-        } else {
+        if (account == null) {
             return new ResponseEntity<>("Account not found",
                     HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(new AccountDTO(account),
+                    HttpStatus.OK);
         }
     }
 
     @GetMapping("/clients/current/accounts")
-    public List<AccountDTO> getAll(Authentication authentication) {
-        Client client = (clientService.findClientByEmail(authentication.getName()));
-        List<AccountDTO> accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
+    public Set<AccountDTO> getAll(Authentication authentication) {
+        ClientDTO client = new ClientDTO(clientService.findClientByEmail(authentication.getName()));
+        Set<AccountDTO> accounts = client.getAccounts();
         return accounts;
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication) {
+    public ResponseEntity<Object> createAccount(Authentication authentication , @RequestParam
+                                                AccountType accountType) {
         Client client = (clientService.findClientByEmail(authentication.getName()));
         if (!clientService.existsClientByEmail(authentication.getName())) {
             return new ResponseEntity<>("The client was not found",
@@ -72,12 +71,13 @@ public class AccountController {
                     HttpStatus.FORBIDDEN);
         }
         String accountNumber = checkAccountNumber();
-        if (client.getAccounts().size() > 3) {
+        List<Account> acountsActive = client.getAccounts().stream().filter(account -> account.getActive()).collect(Collectors.toList());
+        if (acountsActive.size() > 3) {
             return new ResponseEntity<>("You have reached the limit of created accounts",
                     HttpStatus.FORBIDDEN);
         }
         boolean active = true;
-        Account account = new Account(accountNumber, LocalDate.now(), 0 , active);
+        Account account = new Account(accountNumber, LocalDate.now(), 0 , active , accountType);
         accountService.saveAccount(account);
         client.addAccount(account);
         clientService.saveClient(client);
@@ -88,15 +88,11 @@ public class AccountController {
     public ResponseEntity<Object> deleteAccount(Authentication authentication, @RequestParam Long id) {
         Client client = clientService.findClientByEmail(authentication.getName());
         Account account = accountService.findById(id);
-        if (client == null) {
-            return new ResponseEntity<>("Client not found",
-                    HttpStatus.FORBIDDEN);
-        }
         if (account == null) {
             return new ResponseEntity<>("The account doesn't exist",
                     HttpStatus.FORBIDDEN);
         }
-        if (account.getBalance() <= 0) {
+        if (account.getBalance() != 0) {
             return new ResponseEntity<>("You cannot delete an account with a balance greater than zero",
                     HttpStatus.FORBIDDEN);
         }
@@ -110,16 +106,16 @@ public class AccountController {
         }
 
         account.setActive(false);
-        account.getTransactions().stream().forEach(transaction -> transaction.setActive(false));
+        account.getTransactions().forEach(transaction -> transaction.setActive(false));
         accountService.saveAccount(account);
         return new ResponseEntity<>("Account deleted successfully", HttpStatus.CREATED);
     }
 
     public String checkAccountNumber(){
-        String generatedNumber;
+        String numberGenerated;
         do{
-            generatedNumber = AccountUtils.generateNumber();
-        }while(accountService.existsAccountByNumber(generatedNumber));
-        return generatedNumber;
+            numberGenerated = AccountUtils.generateNumber();
+        }while(accountService.existsAccountByNumber(numberGenerated));
+        return numberGenerated;
     }
 }

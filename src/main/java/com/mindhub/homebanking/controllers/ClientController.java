@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
@@ -51,20 +52,20 @@ public class ClientController {
             @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
 
-        if (firstName.isBlank()) {
+        if (firstName.isBlank() || firstName.isEmpty()) {
             return new ResponseEntity<>("You must enter your name",
                     HttpStatus.FORBIDDEN);
         }
 
-        if (lastName.isBlank()) {
+        if (lastName.isBlank() || lastName.isEmpty()) {
             return new ResponseEntity<>("You must enter your last name",HttpStatus.FORBIDDEN);
         }
 
-        if (email.isBlank()) {
+        if (email.isBlank() || email.isEmpty()) {
             return new ResponseEntity<>("You must enter your email",HttpStatus.FORBIDDEN);
         }
 
-        if (password.isBlank()) {
+        if (password.isBlank() || password.isEmpty()) {
             return new ResponseEntity<>("You must enter your password",HttpStatus.FORBIDDEN);
         }
 
@@ -74,7 +75,7 @@ public class ClientController {
         String accountNumber = checkAccountNumber();
         boolean active = true;
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        Account account = new Account(accountNumber, LocalDate.now(), 0, active);
+        Account account = new Account(accountNumber, LocalDate.now(), 0, active , AccountType.SAVING);
         accountService.saveAccount(account);
         newClient.addAccount(account);
         clientService.saveClient(newClient);
@@ -82,10 +83,10 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     public String checkAccountNumber(){
-        String generatedNumber;
+        String numberGenerated;
         do{
-            generatedNumber = AccountUtils.generateNumber();
-        }while(accountService.existsAccountByNumber(generatedNumber));
-        return generatedNumber;
+            numberGenerated = AccountUtils.generateNumber();
+        }while(accountService.existsAccountByNumber(numberGenerated));
+        return numberGenerated;
     }
 }

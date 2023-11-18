@@ -7,7 +7,6 @@ const app = Vue.createApp({
             payments:0,
             destinationAccount: "",
             accounts: {},
-            accountsActives: {},
         };
     },
 
@@ -22,7 +21,6 @@ const app = Vue.createApp({
         axios.get("/api/clients/current/accounts")
             .then(response => {
                 this.accounts = response.data;
-                this.accountsActives = this.filterAccountsActives()
             })
             .catch(error => {
                 console.log(error);
@@ -70,9 +68,11 @@ const app = Vue.createApp({
         },
     })
     },
-    filterAccountsActives(){
-        return this.accounts.filter(accounts => accounts.active)
-       },
+
+    getInterestPercentage() {
+            return this.loans.find(loan => loan.id === this.loanId).interestPercentage 
+        },
+    
     logout() {
         axios
             .post(`/api/logout`)

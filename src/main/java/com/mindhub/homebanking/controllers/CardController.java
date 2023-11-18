@@ -29,7 +29,16 @@ public class CardController {
                                              @RequestParam CardColor color) {
         Client client = clientService.findClientByEmail(authentication.getName());
         if (client == null) {
-            throw new UsernameNotFoundException("Unknow client " + authentication.getName());
+            return new ResponseEntity<>("The client was not found",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (type == null) {
+            return new ResponseEntity<>("Card type is required",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (color == null) {
+            return new ResponseEntity<>("Card type is required",
+                    HttpStatus.FORBIDDEN);
         }
         if (cardService.existsCardByTypeAndColorAndClientAndActive(type,
                 color,
