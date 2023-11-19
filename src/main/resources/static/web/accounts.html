@@ -128,9 +128,10 @@
             </div>
             <div v-if="accounts.length<3" class="d-flex justify-content-center" style="margin: 2rem;">
                 <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="button-card"
-                    style="background-color: rgb(7, 25, 82); padding: 1rem; cursor: pointer; color:  rgba(139, 246, 228, 0.879)!important;">Create new account</a>
-            </div> 
-                  
+                    style="background-color: rgb(7, 25, 82); padding: 1rem; cursor: pointer; color:  rgba(139, 246, 228, 0.879)!important;">Create
+                    new account</a>
+            </div>
+
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -143,9 +144,10 @@
                             <div class="input-group mb-3">
                                 <select v-model="accountType" class="form-select" aria-label="Default select example">
                                     <option value="null" selected>Select account type</option>
-                                    <option v-for="account of accounts" :value="account.accountType">{{ account.accountType }}</option>
+                                    <option v-for="account of accounts" :value="account.accountType">{{
+                                        account.accountType }}</option>
                                 </select>
-                            </div>   
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancell</button>
@@ -159,23 +161,34 @@
 
             <h2 style="text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Your loans
             </h2>
-
             <div class="card-loans" style="flex-wrap: wrap;">
                 <div v-if="loans.length !=0" class="card mb-3" v-for="loan of loans" style="margin: 1rem;">
                     <div class="card-body"
                         style="padding-right: 3rem; padding-left: 3rem; text-align: center; box-shadow: 2px 2px 3px 2px rgb(152, 150, 150) !important; border: solid 1px rgb(53, 162, 159);">
                         <h4 class="card-title card-title-loan">{{loan.loanName}} loan</h4>
-                        <h5 class="card-text card-text-loan">Amount US$ {{formatNumber(loan.loanAmount)}}
+                        <h5 class="card-text card-text-loan">Requested amount: US$ {{formatNumber(loan.loanAmount)}}
                         </h5>
-                        <p class="card-text"><small class="text-body-secondary">To pay in {{loan.loanPayments}} payments
-                                of US${{formatNumber(loan.loanAmount / loan.loanPayments)}}</small></p>
+                        <p class="card-text"><small style="color: rgb(53, 162, 159) !important;" class="text-body-secondary">To pay in {{loan.loanPayments}} payments
+                                of US$ {{formatNumber(loan.loanAmount / loan.loanPayments)}}</small></p>
+                        <p>Amount owed: US$ {{formatNumber(Number(loan.currentAmount
+                        ))}}</p>
+                        <p>Remaining installments: {{loan.currentPayments
+
+                        }}</p>
                     </div>
                 </div>
                 <h3 v-else>You have not applied for loans</h3>
             </div>
             <div class="d-flex justify-content-center">
-                <a href="./assets/pages/loan-application.html" class="button-card"
-                    style="background-color: rgb(53, 162, 159); padding: 0.5rem; padding-left: 2rem; padding-right: 2rem; cursor: pointer; margin-bottom: 1rem;">Apply</a>
+                <div class="d-flex justify-content-center" style="margin: 0.5rem !important;">
+                    <a href="./assets/pages/loan-application.html" class="button-card"
+                        style="background-color: rgb(53, 162, 159); padding: 0.5rem; padding-left: 2rem; padding-right: 2rem; cursor: pointer; margin-bottom: 1rem;">
+                        Apply for a loan</a>
+                </div>
+                <div class="d-flex justify-content-center" style="margin: 0.5rem !important;">
+                    <a href="./assets/pages/payLoan.html" class="button-card"
+                        style="background-color: rgb(53, 162, 159); padding: 0.5rem; padding-left: 2rem; padding-right: 2rem; cursor: pointer; margin-bottom: 1rem;">Pay a loan</a>
+                </div>
             </div>
 
         </main>

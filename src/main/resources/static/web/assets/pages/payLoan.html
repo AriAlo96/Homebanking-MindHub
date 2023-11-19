@@ -69,14 +69,13 @@
 
         </header>
         <main class="mainAccounts">
-            <h2 style="font-size: 3rem; text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Make a
-                transfer!
+            <h2 style="font-size: 3rem; text-align: center; padding-top: 1rem; color: rgb(53, 162, 159);">Paw your loan here!
             </h2>
             <div>
 
                 <div class="d-flex justify-content-around align-items-center flex-wrap">
                     <div style= "width:50%; height: auto;">
-                        <img src="../images/Transfers.png"
+                        <img src="../images/PayLoan.png"
                             style="height: 100%; object-fit: cover; object-position: center;" alt="Image"
                             class="img-fluid">
                     </div>
@@ -85,61 +84,27 @@
                         <div>
 
                             <div class="input-group mb-3">
-                                <select v-model="idAccount" class="form-select" aria-label="Default select example">
-                                    <option value="">Origin account</option>
-                                    <option v-for="account of accounts" :value="account.number">{{account.number}}
-                                        (Balance: US${{ account.balance }})
+                                <select v-model="idLoan" class="form-select" aria-label="Default select example">
+                                    <option value="0">Select the loan to pay</option>
+                                    <option v-for="loan of loans" :value="loan.id">{{loan.loanName}} (Value of your fee: US${{formatNumber(Number(loan.loanAmount / loan.loanPayments))}}) 
                                     </option>
                                 </select>
                             </div>
 
-                            <div class="form-check">
-                                <p class="d-inline-flex gap-1">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" data-bs-toggle="collapse" href="#collapseExample"
-                                        aria-expanded="false" aria-controls="collapseExample">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Transfer to own account
-                                    </label>
-                                <div class="collapse" id="collapseExample">
-                                    <select v-model="destinationNumber" class="form-select"
-                                        aria-label="Default select example">
-                                        <option value="" selected>Select your account</option>
-                                        <option v-for="account of accounts">{{account.number}}
-                                        </option>
-                                    </select>
-                                </div>
-                                </p>
-                            </div>
-
-                            <div class="form-check">
-                                <p class="d-inline-flex gap-1">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" data-bs-toggle="collapse" href="#collapse"
-                                        aria-expanded="false" aria-controls="collapse">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Transfer to third party account
-                                    </label>
-                                <div class="collapse" id="collapse">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">N°</span>
-                                        <input v-model="destinationNumber" type="text" class="form-control"
-                                            aria-label="Default select example">
-                                    </div>
-                                </div>
-                                </p>
-                            </div>
-
-
                             <div class="input-group mb-3">
-                                <span class="input-group-text">US$</span>
-                                <input v-model="amount" type="number" class="form-control"
-                                    aria-label="Amount (to the nearest dollar)" x>
+                                <select v-model="idAccount" class="form-select" aria-label="Default select example">
+                                    <option value="0">Select your payment account</option>
+                                    <option v-for="account of accounts" :value="account.id">{{account.number}}
+                                        (Balance: US${{ formatNumber(Number(account.balance))}})
+                                    </option>
+                                </select>
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-text">Description</span>
-                                <textarea v-model="description" class="form-control"
-                                    aria-label="With textarea"></textarea>
+                            
+                            <div class="input-group mb-3" >
+                                <span class="input-group-text">
+                                    Enter the amount here US$</span>
+                                <input v-model="amount" type="number" class="form-control"
+                                    aria-label="Amount (to the nearest dollar)" x @keyup.enter="payLoan()">
                             </div>
 
                         </div>
@@ -147,8 +112,8 @@
                         <div class="col-auto d-flex justify-content-center">
                             <button
                                 style="background-color: rgb(53, 162, 159) !important; border: none; margin-top: 1rem;"
-                                type="button" class="btn btn-primary mb-3" @click.prevent="generateTransfer()">Confirm
-                                transfer</button>
+                                type="button" class="btn btn-primary mb-3" @click.prevent="payLoan()"  @keyup.enter="payLoan()">Confirm
+                                pay</button>
                         </div>
                     </div>
                 </div>
@@ -194,7 +159,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="../js/transfer.js"></script>
+    <script type="module" src="../js/payLoan.js"></script>
 </body>
 
 </html>

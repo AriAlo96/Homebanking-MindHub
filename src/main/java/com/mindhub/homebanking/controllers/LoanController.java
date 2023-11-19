@@ -159,7 +159,7 @@ public class LoanController {
                 HttpStatus.FORBIDDEN);
     }
     if (amount != roundedInstallmentValue){
-        return new ResponseEntity<>("The amount entered does not correspond to the payment of 1 installment. Your amount to pay is " + roundedInstallmentValue,
+        return new ResponseEntity<>("The amount entered does not correspond to the payment of 1 installment. Your amount to pay is US$ " + roundedInstallmentValue,
                 HttpStatus.FORBIDDEN);
     }
     if (amount == null) {
@@ -175,14 +175,16 @@ public class LoanController {
                 HttpStatus.FORBIDDEN);
     }
 
+    double currentBalanceAccountDebit = account.getBalance() - amount;
+    Transaction transaction = new Transaction(TransactionType.DEBIT,amount,"Canceled fee " + loan + " loan",LocalDateTime.now(),currentBalanceAccountDebit,true);
+
     clientLoan.setCurrentAmount(clientLoan.getCurrentAmount()-amount);
     clientLoan.setCurrentPayments(clientLoan.getCurrentPayments()-1);
     account.setBalance(account.getBalance()-amount);
+    account.addTransaction(transaction);
     clientLoanService.saveClientLoan(clientLoan);
-    accountService.saveAccount(account);
-    double currentBalanceAccountDebit = account.getBalance() - amount;
-    Transaction transaction = new Transaction(TransactionType.DEBIT,amount,"Canceled fee" + loan + "loan",LocalDateTime.now(),currentBalanceAccountDebit,true);
     transactionService.saveTransaction(transaction);
+    accountService.saveAccount(account);
     return new ResponseEntity<>("Payment made successfully",HttpStatus.CREATED);
     }
 
