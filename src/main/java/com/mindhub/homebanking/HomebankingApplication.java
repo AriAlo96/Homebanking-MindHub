@@ -145,10 +145,10 @@ public class HomebankingApplication {
 			Loan loan2 = new Loan("Personal", 100000.0, paymentsPersonal, 0.25);
 			Loan loan3 = new Loan("Automotive", 300000.0, paymentsAutomotive, 0.40);
 
-			ClientLoan clientLoan1 = new ClientLoan(400000 + (400000 * loan1.getInterestPercentage()), 60);
-			ClientLoan clientLoan2 = new ClientLoan(50000 + (50000 * loan2.getInterestPercentage()), 12);
-			ClientLoan clientLoan3 = new ClientLoan(100000 + (100000 * loan2.getInterestPercentage()), 12);
-			ClientLoan clientLoan4 = new ClientLoan(200000 + (200000 * loan3.getInterestPercentage()), 36);
+			ClientLoan clientLoan1 = new ClientLoan(400000 + (400000 * loan1.getInterestPercentage()), 60 ,400000 + (400000 * loan1.getInterestPercentage()),60);
+			ClientLoan clientLoan2 = new ClientLoan(50000 + (50000 * loan2.getInterestPercentage()), 12,50000 + (50000 * loan2.getInterestPercentage()),12);
+			ClientLoan clientLoan3 = new ClientLoan(100000 + (100000 * loan2.getInterestPercentage()), 12,100000 + (100000 * loan2.getInterestPercentage()),12);
+			ClientLoan clientLoan4 = new ClientLoan(200000 + (200000 * loan3.getInterestPercentage()), 36, 200000 + (200000 * loan3.getInterestPercentage()),36);
 
 			client1.addClientLoan(clientLoan1);
 			client1.addClientLoan(clientLoan2);
