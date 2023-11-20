@@ -6,7 +6,8 @@ const app = Vue.createApp({
             loans: {}, 
             amount: 0, 
             idLoan: 0,
-            idAccount: 0
+            idAccount: 0,
+            email: ""
         };
     },
 
@@ -14,6 +15,7 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
         .then(response=>{
         this.client = response.data;
+        this.email = this.client.email
         console.log(this.client);
         this.loans = this.client.loans;
         this.accounts = this.client.accounts;

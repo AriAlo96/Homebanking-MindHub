@@ -1,11 +1,13 @@
 const app = Vue.createApp({
     data() {
         return {
+            client: {},
             accounts: {},  
             amount: 0,
             description: "",
             originNumber: "",
-            destinationNumber: ""   
+            destinationNumber: "",
+            email: ""  
         };
     },
 
@@ -17,6 +19,13 @@ const app = Vue.createApp({
             .catch(error => {
                 console.log(error);
             });
+                axios.get("/api/clients/current")
+                .then(response=>{
+                this.client = response.data;
+                this.email = this.client.email
+                })
+                .catch(error => console.log(error))
+            
     },
 
     methods: {

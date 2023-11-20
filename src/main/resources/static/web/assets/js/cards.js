@@ -7,7 +7,8 @@ const app = Vue.createApp({
             debitCards: [],
             cardType: "",
             cardColor: "",
-            currentDate: new Date()
+            currentDate: new Date(),
+            email: ""
         };
     },
 
@@ -15,6 +16,7 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
             .then(response => {
                 this.client = response.data;
+                this.email = this.client.email
                 this.cards = this.client.cards
                 this.creditCards = this.createCreditCards()
                 this.debitCards = this.createDebitCards()

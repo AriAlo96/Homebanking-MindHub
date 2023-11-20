@@ -4,7 +4,8 @@ const app = Vue.createApp({
             client: {},
             account: {},
             transactions: {},
-            messageError: ""
+            messageError: "",
+            email: ""
         };
     },
 
@@ -25,6 +26,7 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
             .then(response => {
                 this.client = response.data;
+                this.email = this.client.email
             })
             .catch(error => {
                 console.log(error);
