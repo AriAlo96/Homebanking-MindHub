@@ -49,7 +49,8 @@
                         <a class="nav-link" aria-current="page" href="../../accounts.html">Accounts</a>
                         <a class="nav-link" href="./transfers.html">Transfers</a>
                         <a class="nav-link" href="./cards.html">Cards</a>
-                        <a class="nav-link" href="#">Loans</a>
+                        <a v-if="email.includes('savingsbank')" class="nav-link" href="../../../administrator/assets/pages/loans.html">Loans admin</a>
+                        <a v-if="email.includes('savingsbank')" class="nav-link" href="../../../administrator/manager.html">Manager</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +60,8 @@
                     <a class="nav-link" aria-current="page" href="../../accounts.html">Accounts</a>
                     <a class="nav-link" href="./transfers.html">Transfers</a>
                     <a class="nav-link" href="./cards.html">Cards</a>
-                    <a class="nav-link" href="#">Loans</a>
+                    <a v-if="email.includes('savingsbank')" class="nav-link" href="../../../administrator/assets/pages/loans.html">Loans admin</a>
+                    <a v-if="email.includes('savingsbank')" class="nav-link" href="../../../administrator/manager.html">Manager</a>
                 </div>
             </nav>
 

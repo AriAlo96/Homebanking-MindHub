@@ -4,7 +4,8 @@ const app = Vue.createApp({
             client: {},
             accounts: {},
             loans: {},
-            accountType: null
+            accountType: null,
+            email: ""
         };
     },
 
@@ -12,6 +13,7 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
             .then(response => {
                 this.client = response.data;
+                this.email = this.client.email
                 this.accounts = this.client.accounts;
                 this.accounts.sort((a, b) => a.id - b.id);
                 console.log(this.accounts);
