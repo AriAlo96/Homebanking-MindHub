@@ -33,13 +33,11 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/web/**").hasAuthority("CLIENT")
 
-                .antMatchers("/api/clients/current").hasAuthority("CLIENT")
-
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts" , "/api/clients/current/cards" , "/api/clients/current/transfers" , "/api/loans" , "/api/loans/payments").hasAuthority("CLIENT")
 
                 .antMatchers(HttpMethod.GET, "/api/clients/current" , "/api/accounts/{id}" , "/api/clients/current/accounts" , "/api/loans").hasAuthority("CLIENT")
 
-                .antMatchers(HttpMethod.PUT, "/api/clients/current/cards" , "/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards" , "/api/clients/current/accounts").hasAuthority("CLIENT")
 
         .anyRequest().denyAll();
 

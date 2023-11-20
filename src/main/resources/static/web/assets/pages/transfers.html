@@ -85,7 +85,7 @@
                         <div>
 
                             <div class="input-group mb-3">
-                                <select v-model="idAccount" class="form-select" aria-label="Default select example">
+                                <select v-model="originNumber" class="form-select" aria-label="Default select example">
                                     <option value="">Origin account</option>
                                     <option v-for="account of accounts" :value="account.number">{{account.number}}
                                         (Balance: US${{ account.balance }})

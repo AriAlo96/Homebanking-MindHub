@@ -66,7 +66,7 @@ public class CardController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping("/clients/current/cards")
+    @PatchMapping("/clients/current/cards")
     public ResponseEntity<Object> deleteCard(Authentication authentication, @RequestParam Long id) {
         Client client = clientService.findClientByEmail(authentication.getName());
         Card card = cardService.findById(id);

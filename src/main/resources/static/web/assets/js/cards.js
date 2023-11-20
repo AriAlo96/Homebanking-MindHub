@@ -57,7 +57,7 @@ const app = Vue.createApp({
                   popup: '',
                   backdrop: ''
             }, preConfirm: () => {
-            axios.put(`/api/clients/current/cards`, `id=${id}`)
+            axios.patch(`/api/clients/current/cards`, `id=${id}`)
                 .then(() => {
                     Swal.fire({
                         icon: 'success',

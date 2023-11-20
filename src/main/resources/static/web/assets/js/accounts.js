@@ -13,6 +13,7 @@ const app = Vue.createApp({
             .then(response => {
                 this.client = response.data;
                 this.accounts = this.client.accounts;
+                this.accounts.sort((a, b) => a.id - b.id);
                 console.log(this.accounts);
                 this.loans = this.client.loans
                 console.log(this.loans);
@@ -92,7 +93,7 @@ const app = Vue.createApp({
               popup: '',
               backdrop: ''
         }, preConfirm: () => {
-        axios.put(`/api/clients/current/accounts`, `id=${id}`)
+        axios.patch(`/api/clients/current/accounts`, `id=${id}`)
             .then(() => {
                 Swal.fire({
                     title: "Successfully delete account",

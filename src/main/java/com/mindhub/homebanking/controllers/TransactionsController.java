@@ -1,9 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.itextpdf.text.DocumentException;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.TransactionService;
@@ -17,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -40,21 +42,16 @@ public class TransactionsController {
         Account accountDebit = accountService.findAccountByNumber(originNumber);
         Account accountCredit = accountService.findAccountByNumber(destinationNumber);
 
-        if (client == null) {
-            return new ResponseEntity<>("Unknow client " + authentication.getName(),
-                    HttpStatus.UNAUTHORIZED);
-        }
-
         if (accountDebit.getClient() != client) {
-            return new ResponseEntity<>("The origin account doesn´t belong to the authenticated client",
+            return new ResponseEntity<>("The origin account doesn't belong to the authenticated client",
                     HttpStatus.FORBIDDEN);
         }
         if (accountDebit == null) {
-            return new ResponseEntity<>("The origin account doesn´t exist",
+            return new ResponseEntity<>("The origin account doesn't exist",
                     HttpStatus.FORBIDDEN);
         }
         if (accountCredit == null) {
-            return new ResponseEntity<>("The destination account doesn´t exist",
+            return new ResponseEntity<>("The destination account doesn't exist",
                     HttpStatus.FORBIDDEN);
         }
         if (accountDebit.getBalance() < amount) {
@@ -108,6 +105,43 @@ public class TransactionsController {
 
             return new ResponseEntity<>("Transaction successfully", HttpStatus.CREATED);
         }
+
+//    public ResponseEntity<Object> ExportingToPDF(HttpServletResponse response, Authentication authentication, String accountNumber, String startDate, String endingDate) throws DocumentException, IOException {
+//        Client client = clientService.findClientByEmail(authentication.getName());
+//        Account account = accountService.findAccountByNumber(accountNumber);
+//
+//        if (account == null) {
+//            return new ResponseEntity<>("The account doesn't exist", HttpStatus.FORBIDDEN);
+//        }
+//
+//        if (account.getClient() != client) {
+//            return new ResponseEntity<>("The account doesn't belong to the authenticated client",
+//                    HttpStatus.FORBIDDEN);
+//        }
+//
+//        if (startDate.isBlank()) {
+//            return new ResponseEntity<>("Start date cannot be empty", HttpStatus.FORBIDDEN);
+//        } else if (endingDate.isBlank()) {
+//            return new ResponseEntity<>("End date cannot be empty", HttpStatus.FORBIDDEN);
+//        }
+//
+//        response.setContentType("application/pdf");
+//
+//        String headerKey = "Content-Disposition";
+//        String headerValue = "attachment; filename=Transactions" + accountNumber + ".pdf";
+//        response.setHeader(headerKey, headerValue);
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        LocalDateTime dateTimeStart = LocalDateTime.parse(startDate, formatter);
+//        LocalDateTime dateTimeEnd = LocalDateTime.parse(endingDate, formatter);
+//
+//        List<Transaction> listTransactions = transactionService.searchByDate(client, accountNumber, dateTimeStart, dateTimeEnd);
+//
+//        TransactionPDF exporter = new TransactionPDF(listTransactions, account);
+//        exporter.usePDFExport(response);
+//
+//        return new ResponseEntity<>("PDF created successfully", HttpStatus.CREATED);
+//    }
     }
 
 
