@@ -85,9 +85,10 @@ public class LoanController {
         if (loan.getclients().contains(client)){
             return new ResponseEntity<>("You have already applied for this loan", HttpStatus.FORBIDDEN);
         }
-        Double currentAmount = loanApplicationDTO.getAmount();
+
         double amount = loanApplicationDTO.getAmount() + (loanApplicationDTO.getAmount() * loan.getInterestPercentage());
-        ClientLoan clientLoan = new ClientLoan(amount,loanApplicationDTO.getPayments(),amount,
+        Double currentAmount = amount;
+        ClientLoan clientLoan = new ClientLoan(amount,loanApplicationDTO.getPayments(),currentAmount,
                 loanApplicationDTO.getPayments());
 
         client.addClientLoan(clientLoan);
