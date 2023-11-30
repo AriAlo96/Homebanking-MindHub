@@ -1,7 +1,5 @@
 package com.mindhub.homebanking.utils;
 
-import com.mindhub.homebanking.services.CardService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public final class CardUtils {
     private CardUtils() {

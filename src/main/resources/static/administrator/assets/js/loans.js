@@ -57,6 +57,17 @@ const app = Vue.createApp ({
         },
     })
     },
+    logout() {
+        axios
+            .post(`/api/logout`)
+            .then(response => {
+                console.log("SingOut");
+                location.pathname = `/index.html`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
     }
 });
 app.mount('#app');
