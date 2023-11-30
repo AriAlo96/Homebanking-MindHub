@@ -102,7 +102,7 @@
                     <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Debit Cards</h3>
                     <div class="container-ext d-flex gap-5 flex-wrap">
                         <div v-if="debitCards.length !== 0" class="card-ext" v-for="card of debitCards">
-                            <h6 style="color: black;" v-if="card.thruDate < currentDate.toLocaleDateString()">This card is expired</h6>
+                            <h6 style="color: black;" v-if="card.thruDate > currentDate.toLocaleDateString()">This card is expired</h6>
                             <div class="card-inner-ext" style="margin: 0.5rem;">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
@@ -169,7 +169,7 @@
                     <h3 class="h3-cards" style="margin: 1rem; font-size: 2rem !important;">Credit Cards</h3>
                     <div class="container-ext d-flex gap-2 flex-wrap">
                         <div v-if="creditCards.length !== 0" class="card-ext" v-for="card of creditCards">
-                            <h6 style="color: black;" v-if="card.thruDate < currentDate.toLocaleDateString()">This card is expired</h6>
+                            <h6 style="color: black;" v-if="card.thruDate > currentDate.toLocaleDateString()">This card is expired</h6>
                             <div class="card-inner-ext" style="margin: 0.5rem;">
                                 <div class="front-ext" :class="{
                                 'card-gold-front': card.color === 'GOLD',
