@@ -51,7 +51,6 @@ public class CardController {
         String cardNumber = checkCardNumber();
         int cvv = CardUtils.generateCvv();
         Boolean active = true;
-        Boolean expired = (thruDate.isBefore(LocalDate.now()));
         Card newCard = new Card((client.getFirstName().toUpperCase() + " " + client.getLastName().toUpperCase()),
                 type,
                 color,
